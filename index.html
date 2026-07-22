@@ -1,42 +1,149 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EShop - Bilgi Platformu</title>
+    <title>Eshop - Sağlık Bilgi Platformu</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts에서 폰트를 더 세련되게 바꿉니다 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- 헤더 영역 -->
+    <!-- 헤더 디자인 -->
     <header>
-        <div class="logo">EShop <span>BİLGİ PLATFORMU</span></div>
+        <div class="logo">
+            <div class="logo-main">
+                <span class="snake-icon">⚕️</span><span class="red-e">E</span>shop
+            </div>
+            <div class="subtitle">SAĞLIK BİLGİ PLATFORMU</div>
+        </div>
         <nav>
-            <a href="#">Ana Sayfa</a>
-            <a href="#">Bilgi Rehberi</a>
-            <a href="#">Destek</a>
-            <a href="#">Abone Ol</a>
+            <a href="#" data-lang="nav_home" class="active">Ana Sayfa</a>
+            <a href="#" data-lang="nav_guide">Bilgi Rehberi</a>
+            <a href="#" data-lang="nav_support">Destek</a>
+            <a href="#" data-lang="nav_subscribe">Abone Ol</a>
+            <select id="language-selector" class="lang-btn" onchange="changeLanguage()">
+                <option value="tr">🇹🇷 TR ▼</option>
+                <option value="en">🇺🇸 EN ▼</option>
+                <option value="ko">🇰🇷 KO ▼</option>
+            </select>
         </nav>
     </header>
 
-    <!-- 히어로 섹션 (검색) -->
+    <!-- 히어로 섹션 -->
     <section class="hero">
-        <h1>Sağlık ürünleri hakkında güvenilir bilgiye <span>kolay erişim</span></h1>
-        <p>Ürün içerikleri, kullanım detayları ve merak ettiklerinize hızlıca ulaşın.</p>
-        
-        <div class="search-container">
-            <input type="text" placeholder="Ürün adı, içerik, kategori veya konu ara...">
-            <button>Ara</button>
+        <div class="hero-content">
+            <h1 data-lang="hero_title">Sağlık ürünleri hakkında güvenilir bilgiye <span class="red-text">kolay erişim</span></h1>
+            <p data-lang="hero_desc">Ürün içerikleri, kullanım detayları ve merak ettiklerinize hızlıca ulaşın.</p>
+            
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Ürün adı, içerik, kategori veya konu ara...">
+                <button class="search-btn" data-lang="search_btn">Ara</button>
+            </div>
+            
+            <div class="popular-searches">
+                <span data-lang="popular" class="popular-label">Popüler aramalar:</span>
+                <span class="tag">C Vitamini</span>
+                <span class="tag">Omega 3</span>
+                <span class="tag">Probiyotik</span>
+                <span class="tag">Multivitamin</span>
+                <span class="tag">Magnezyum</span>
+            </div>
         </div>
-        
-        <div class="popular-searches">
-            <span>Popüler aramalar:</span>
-            <button>C Vitamini</button>
-            <button>Omega 3</button>
-            <button>Probiyotik</button>
+        <div class="hero-image-placeholder">
+            <!-- 배경 이미지 느낌을 주는 연한 박스 -->
         </div>
     </section>
 
-    <script href="script.js"></script>
+    <!-- 특징 카드 섹션 -->
+    <section class="features">
+        <div class="card">
+            <div class="icon-placeholder">📄</div>
+            <h3 data-lang="card1_title">Bilgi Rehberi</h3>
+            <p data-lang="card1_desc">Ürün içerikleri, kullanım alanları ve detaylı bilgiler.</p>
+            <a href="#" class="card-arrow">→</a>
+        </div>
+        <div class="card">
+            <div class="icon-placeholder">💬</div>
+            <h3 data-lang="card2_title">Uzman Desteği</h3>
+            <p data-lang="card2_desc">Uzman ekibimize sorularınızı iletebilir, destek alabilirsiniz.</p>
+            <a href="#" class="card-arrow">→</a>
+        </div>
+        <div class="card">
+            <div class="icon-placeholder">🔖</div>
+            <h3 data-lang="card3_title">Favorilerim</h3>
+            <p data-lang="card3_desc">Önemli gördüğünüz içerikleri kaydedin, kolayca ulaşın.</p>
+            <a href="#" class="card-arrow">→</a>
+        </div>
+        <div class="card">
+            <div class="icon-placeholder">✉️</div>
+            <h3 data-lang="card4_title">Abone Ol</h3>
+            <p data-lang="card4_desc">Güncel içeriklerden ve yeni rehberlerden haberdar olun.</p>
+            <a href="#" class="card-arrow">→</a>
+        </div>
+    </section>
+
+    <!-- 뉴스레터 구독 섹션 -->
+    <section class="newsletter">
+        <div class="newsletter-content">
+            <div class="newsletter-left">
+                <span class="inbox-icon">✉️</span>
+                <div class="news-text">
+                    <h3 data-lang="news_title">Güncel içerikler ve yeni rehberlerden haberdar olmak için abone olun!</h3>
+                    <p data-lang="news_desc">Sadece önemli bilgiler, spam yok.</p>
+                </div>
+            </div>
+            <div class="sub-form">
+                <input type="email" placeholder="E-posta adresiniz">
+                <button class="sub-btn" data-lang="sub_btn">Abone Ol</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 하단 특징 섹션 -->
+    <section class="bottom-features">
+        <div class="b-feature">
+            <span class="b-icon">🛡️</span>
+            <div class="b-text">
+                <h4 data-lang="b1_title">Tarafsız Bilgi</h4>
+                <p data-lang="b1_desc">Tüm içerikler bağımsız olarak hazırlanır ve düzenlenir.</p>
+            </div>
+        </div>
+        <div class="b-feature">
+            <span class="b-icon">✅</span>
+            <div class="b-text">
+                <h4 data-lang="b2_title">Güvenilir Kaynak</h4>
+                <p data-lang="b2_desc">Bilgiler, bilimsel kaynaklar ve resmi verilerden derlenir.</p>
+            </div>
+        </div>
+        <div class="b-feature">
+            <span class="b-icon">🔒</span>
+            <div class="b-text">
+                <h4 data-lang="b3_title">Gizlilik Koruması</h4>
+                <p data-lang="b3_desc">Kişisel verileriniz güvenli bir şekilde korunur.</p>
+            </div>
+        </div>
+        <div class="b-feature">
+            <span class="b-icon">👤</span>
+            <div class="b-text">
+                <h4 data-lang="b4_title">Kullanıcı Odaklı</h4>
+                <p data-lang="b4_desc">İhtiyaçlarınıza uygun, anlaşılır ve hızlı erişim.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer>
+        <p>© 2025 Eshop Bilgi Platformu. Tüm hakları saklıdır.</p>
+        <div class="footer-links">
+            <a href="#">Hakkımızda</a> • <a href="#">Kullanım Koşulları</a> • <a href="#">Gizlilik Politikası</a> • <a href="#">İletişim</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
