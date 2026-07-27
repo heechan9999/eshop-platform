@@ -1,4 +1,4 @@
-// 1. 다국어 번역 데이터 객체 (터키어 기본 최적화)
+// 다국어 데이터
 const translations = {
     tr: {
         nav_home: "Ana Sayfa",
@@ -8,19 +8,7 @@ const translations = {
         hero_title: "Sağlık ürünleri hakkında güvenilir bilgiye <span>kolay erişim</span>",
         hero_desc: "Ürün içerikleri, kullanım detayları ve merak ettiklerinize hızlıca ulaşın.",
         search_btn: "Ara",
-        
-        // 카테고리 터키어
-        cat_vitamin: "Vitamin",
-        cat_omega: "Omega",
-        cat_takviye: "Takviye",
-        cat_kisisel: "Kişisel Bakım",
-        cat_sac: "Saç Bakımı",
-        cat_erkek: "Erkek",
-        cat_anne: "Anne & Bebek",
-        cat_ortopedi: "Ortopedi",
-        cat_ilkyardim: "İlkyardım",
-        cat_genel: "Genel",
-
+        pop_label: "Popüler aramalar:",
         card1_title: "Bilgi Rehberi",
         card1_desc: "Ürün içerikleri, kullanım alanları ve detaylı bilgiler.",
         card2_title: "Uzman Desteği",
@@ -59,16 +47,7 @@ const translations = {
         hero_title: "Easy access to reliable info on <span>health products</span>",
         hero_desc: "Quickly find product contents, usage details, and what you wonder about.",
         search_btn: "Search",
-        cat_vitamin: "Vitamins",
-        cat_omega: "Omega",
-        cat_takviye: "Supplements",
-        cat_kisisel: "Personal Care",
-        cat_sac: "Hair Care",
-        cat_erkek: "Men's Health",
-        cat_anne: "Mom & Baby",
-        cat_ortopedi: "Orthopedics",
-        cat_ilkyardim: "First Aid",
-        cat_genel: "General",
+        pop_label: "Popular searches:",
         card1_title: "Information Guide",
         card1_desc: "Product contents, usage areas, and detailed information.",
         card2_title: "Expert Support",
@@ -107,16 +86,7 @@ const translations = {
         hero_title: "건강 제품에 대한 신뢰할 수 있는 정보에 <span>쉽게 접근하세요</span>",
         hero_desc: "제품 성분, 사용법 및 궁금한 점을 빠르게 찾아보세요.",
         search_btn: "검색",
-        cat_vitamin: "비타민",
-        cat_omega: "오메가",
-        cat_takviye: "식품 보충제",
-        cat_kisisel: "개인 관리",
-        cat_sac: "모발 관리",
-        cat_erkek: "남성 건강",
-        cat_anne: "엄마와 아기",
-        cat_ortopedi: "정형외과",
-        cat_ilkyardim: "구급상자",
-        cat_genel: "일반",
+        pop_label: "인기 검색어:",
         card1_title: "정보 가이드",
         card1_desc: "제품 성분, 사용 분야 및 상세 정보.",
         card2_title: "전문가 지원",
@@ -149,7 +119,6 @@ const translations = {
     }
 };
 
-// 2. 언어 변경 기능
 function changeLanguage() {
     const lang = document.getElementById("language-selector").value;
     const elements = document.querySelectorAll("[data-lang]");
@@ -162,18 +131,18 @@ function changeLanguage() {
     });
 }
 
-// 3. 카테고리 슬라이더 스와이프(드래그) 및 링크 클릭 방어 기능
+// 인기 검색어 태그 드래그(마우스 스와이프) 기능 및 클릭 방어 로직
 document.addEventListener("DOMContentLoaded", () => {
-    const slider = document.getElementById('categorySlider');
+    const slider = document.getElementById('popularSearches');
     let isDown = false;
-    let isDragging = false; // 드래그 상태 확인 변수
+    let isDragging = false;
     let startX;
     let scrollLeft;
 
     if (slider) {
         slider.addEventListener('mousedown', (e) => {
             isDown = true;
-            isDragging = false; // 마우스를 누를 땐 드래그 아님
+            isDragging = false;
             slider.style.cursor = 'grabbing';
             startX = e.pageX - slider.offsetLeft;
             scrollLeft = slider.scrollLeft;
@@ -187,8 +156,6 @@ document.addEventListener("DOMContentLoaded", () => {
         slider.addEventListener('mouseup', () => {
             isDown = false;
             slider.style.cursor = 'grab';
-            
-            // 드래그가 끝난 직후 클릭 이벤트를 막기 위해 짧은 딜레이 후 초기화
             setTimeout(() => {
                 isDragging = false;
             }, 50);
@@ -196,19 +163,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         slider.addEventListener('mousemove', (e) => {
             if (!isDown) return;
-            isDragging = true; // 마우스를 움직이면 드래그 상태로 변경
-            e.preventDefault(); 
+            isDragging = true;
+            e.preventDefault();
             const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 1.5; 
+            const walk = (x - startX) * 1.5;
             slider.scrollLeft = scrollLeft - walk;
         });
 
-        // a 태그(링크) 클릭 시 드래그 중이었다면 이동 취소
-        const links = slider.querySelectorAll('a');
-        links.forEach(link => {
-            link.addEventListener('click', (e) => {
+        // 드래그 중일 때는 링크 이동을 방지하고, 단순 클릭 시에만 정상 이동
+        const tags = slider.querySelectorAll('a');
+        tags.forEach(tag => {
+            tag.addEventListener('click', (e) => {
                 if (isDragging) {
-                    e.preventDefault(); // 스와이프 중에는 페이지 안 넘어가게 방어
+                    e.preventDefault();
                 }
             });
         });

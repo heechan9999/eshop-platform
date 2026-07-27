@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EShop Bilgi Platformu</title>
     
-    <!-- CSS & JS Link -->
+    <!-- CSS & JS -->
     <link rel="stylesheet" href="css/style.css">
     <script defer src="js/script.js"></script>
 
@@ -21,22 +21,19 @@
     <!-- Header -->
     <header>
         <div class="container nav">
-            <!-- 로고 -->
             <a href="index.html" class="logo">
-                <img src="images/logo.jpg" alt="EShop">
+                <img src="images/logo.jpg" alt="EShop Logo">
             </a>
 
-            <!-- 네비게이션 -->
             <nav>
                 <ul>
                     <li><a href="index.html" data-lang="nav_home">Ana Sayfa</a></li>
-                    <li><a href="guide.html" data-lang="nav_guide">Bilgi Rehberi</a></li>
+                    <li><a href="#" data-lang="nav_guide">Bilgi Rehberi</a></li>
                     <li><a href="#" data-lang="nav_support">Destek</a></li>
                     <li><a href="#" data-lang="nav_subscribe">Abone Ol</a></li>
                 </ul>
             </nav>
 
-            <!-- 언어 선택 -->
             <select id="language-selector" class="lang-btn" onchange="changeLanguage()">
                 <option value="tr">🇹🇷 TR</option>
                 <option value="en">🇺🇸 EN</option>
@@ -47,76 +44,46 @@
         </div>
     </header>
 
-    <!-- Hero Section (중앙 정렬) -->
+    <!-- Hero Section (세 번째 짤 분위기: 우측 배경 이미지 적용) -->
     <section class="hero">
-        <div class="container hero-content">
-            
-            <h1 data-lang="hero_title">
-                Sağlık ürünleri hakkında güvenilir bilgiye <span>kolay erişim</span>
-            </h1>
-            <p data-lang="hero_desc">
-                Ürün içerikleri, kullanım detayları ve merak ettiklerinize hızlıca ulaşın.
-            </p>
+        <div class="container hero-container">
+            <div class="hero-text-content">
+                <h1 data-lang="hero_title">
+                    Sağlık ürünleri hakkında güvenilir bilgiye <span>kolay erişim</span>
+                </h1>
+                <p data-lang="hero_desc">
+                    Ürün içerikleri, kullanım detayları ve merak ettiklerinize hızlıca ulaşın.
+                </p>
 
-            <!-- 검색창 -->
-            <div class="search-box">
-                <input type="text" placeholder="Ürün adı, içerik, kategori veya konu ara...">
-                <button class="search-btn" data-lang="search_btn">Ara</button>
-            </div>
+                <!-- 검색창 -->
+                <div class="search-box">
+                    <input type="text" placeholder="Ürün adı, içerik, kategori veya konu ara...">
+                    <button class="search-btn" data-lang="search_btn">Ara</button>
+                </div>
 
-            <!-- 🔥 카테고리 슬라이더 (검색창 바로 밑, 링크 처리) -->
-            <div class="category-slider-container">
-                <div class="category-slider" id="categorySlider">
-                    <a href="#vitamin" class="category-item">
-                        <div class="img-box"><img src="images/비타민.png" alt="Vitamin"></div>
-                        <span data-lang="cat_vitamin">Vitamin</span>
-                    </a>
-                    <a href="#omega" class="category-item">
-                        <div class="img-box"><img src="images/오메가.png" alt="Omega"></div>
-                        <span data-lang="cat_omega">Omega</span>
-                    </a>
-                    <a href="#takviye" class="category-item">
-                        <div class="img-box"><img src="images/식품 보충제.png" alt="Takviye"></div>
-                        <span data-lang="cat_takviye">Takviye</span>
-                    </a>
-                    <a href="#kisisel" class="category-item">
-                        <div class="img-box"><img src="images/개인 관리, 피부.png" alt="Kişisel Bakım"></div>
-                        <span data-lang="cat_kisisel">Kişisel Bakım</span>
-                    </a>
-                    <a href="#sac" class="category-item">
-                        <div class="img-box"><img src="images/머리.png" alt="Saç Bakımı"></div>
-                        <span data-lang="cat_sac">Saç Bakımı</span>
-                    </a>
-                    <a href="#erkek" class="category-item">
-                        <div class="img-box"><img src="images/남성.png" alt="Erkek"></div>
-                        <span data-lang="cat_erkek">Erkek</span>
-                    </a>
-                    <a href="#anne" class="category-item">
-                        <div class="img-box"><img src="images/엄마와 아기.png" alt="Anne & Bebek"></div>
-                        <span data-lang="cat_anne">Anne & Bebek</span>
-                    </a>
-                    <a href="#ortopedi" class="category-item">
-                        <div class="img-box"><img src="images/정형외과.png" alt="Ortopedi"></div>
-                        <span data-lang="cat_ortopedi">Ortopedi</span>
-                    </a>
-                    <a href="#ilkyardim" class="category-item">
-                        <div class="img-box"><img src="images/퍼스트 에이드 킷.png" alt="İlkyardım"></div>
-                        <span data-lang="cat_ilkyardim">İlkyardım</span>
-                    </a>
-                    <a href="#genel" class="category-item">
-                        <div class="img-box"><img src="images/일반.png" alt="Genel"></div>
-                        <span data-lang="cat_genel">Genel</span>
-                    </a>
+                <!-- 🔥 검색창 밑 인기 검색어 목록 (드래그/스와이프 가능 + 링크 연결) -->
+                <div class="popular-searches-wrapper">
+                    <span class="pop-label" data-lang="pop_label">Popüler aramalar:</span>
+                    <div class="popular-tags" id="popularSearches">
+                        <a href="#vitamin" class="tag-item">C Vitamini</a>
+                        <a href="#omega" class="tag-item">Omega 3</a>
+                        <a href="#probiyotik" class="tag-item">Probiyotik</a>
+                        <a href="#multivitamin" class="tag-item">Multivitamin</a>
+                        <a href="#magnezyum" class="tag-item">Magnezyum</a>
+                        <a href="#zinc" class="tag-item">Çinko</a>
+                        <a href="#kolajen" class="tag-item">Kolajen</a>
+                    </div>
                 </div>
             </div>
-
+            <!-- 우측은 CSS 백그라운드 이미지(뒷 배경.png) 영역 -->
+            <div class="hero-visual-placeholder"></div>
         </div>
     </section>
 
     <!-- Features / 안내 카드 -->
     <section class="features">
         <div class="container features-grid">
-            <a href="guide.html" class="feature-card">
+            <a href="#" class="feature-card">
                 <div class="feature-icon">📄</div>
                 <h3 data-lang="card1_title">Bilgi Rehberi</h3>
                 <p data-lang="card1_desc">Ürün içerikleri, kullanım alanları ve detaylı bilgiler.</p>
@@ -143,7 +110,7 @@
         </div>
     </section>
 
-    <!-- Newsletter Section (다크 네이비 배너) -->
+    <!-- Newsletter Section -->
     <section class="newsletter">
         <div class="container">
             <div class="newsletter-box">
