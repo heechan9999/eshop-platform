@@ -1,183 +1,307 @@
-const translations = {
-    tr: {
-        nav_home: "Ana Sayfa",
-        nav_guide: "Bilgi Rehberi",
-        nav_support: "Destek",
-        nav_subscribe: "Abone Ol",
-        hero_title: "Sağlık ürünleri hakkında güvenilir bilgiye <span>kolay erişim</span>",
-        hero_desc: "Ürün içerikleri, kullanım detayları ve merak ettiklerinize hızlıca ulaşın.",
-        search_btn: "Ara",
-        cat_dental: "Ağız ve Diş Sağlığı",
-        cat_hair: "Saç Bakımı",
-        cat_health: "Sağlık",
-        cat_medical: "Medikal & Ortopedi",
-        cat_pharmacy: "Eczaneniz İçin",
-        cat_special: "Özel Kategoriler",
-        cat_outlet: "Outlet",
-        card1_title: "Bilgi Rehberi",
-        card1_desc: "Ürün içerikleri, kullanım alanları ve detaylı bilgiler.",
-        card2_title: "Uzman Desteği",
-        card2_desc: "Uzman ekibimize sorularınızı iletebilir, destek alabilirsiniz.",
-        card3_title: "Favorilerim",
-        card3_desc: "Önemli gördüğünüz içerikleri kaydedin, kolayca ulaşın.",
-        card4_title: "Abone Ol",
-        card4_desc: "Güncel içeriklerden ve yeni buluşlardan haberdar olun.",
-        news_title: "Güncel içerikler ve yeni rehberlerden haberdar olmak için abone olun!",
-        news_desc: "Sadece önemli bilgiler, spam yok.",
-        sub_btn: "Abone Ol",
-        b1_title: "Tarafsız Bilgi",
-        b1_desc: "Tüm içerikler bağımsız olarak hazırlanır ve düzenlenir.",
-        b2_title: "Güvenilir Kaynak",
-        b2_desc: "Bilgiler, bilimsel kaynaklar ve resmi verilerden derlenir.",
-        b3_title: "Gizlilik Koruması",
-        b3_desc: "Kişisel verileriniz güvenli bir şekilde korunur.",
-        b4_title: "Kullanıcı Odaklı",
-        b4_desc: "İhtiyaçlarınıza uygun, anlaşılır ve hızlı erişim.",
-        footer_rights: "© 2026 Eshop Bilgi Platformu. Tüm hakları saklıdır.",
-        f_about: "Hakkımızda",
-        f_terms: "Kullanım Koşulları",
-        f_privacy: "Gizlilik Politikası",
-        f_contact: "İletişim",
-        m_home: "Ana Sayfa",
-        m_search: "Ara",
-        m_support: "Destek",
-        m_subscribe: "Abone Ol",
-        m_profile: "Profil"
-    },
-    en: {
-        nav_home: "Home",
-        nav_guide: "Info Guide",
-        nav_support: "Support",
-        nav_subscribe: "Subscribe",
-        hero_title: "Easy access to reliable info on <span>health products</span>",
-        hero_desc: "Quickly find product contents, usage details, and what you wonder about.",
-        search_btn: "Search",
-        cat_dental: "Dental Care",
-        cat_hair: "Hair Care",
-        cat_health: "Health",
-        cat_medical: "Medical & Orthopedics",
-        cat_pharmacy: "For Pharmacy",
-        cat_special: "Special Categories",
-        cat_outlet: "Outlet",
-        card1_title: "Information Guide",
-        card1_desc: "Product contents, usage areas, and detailed information.",
-        card2_title: "Expert Support",
-        card2_desc: "Send questions to our expert team and get support.",
-        card3_title: "My Favorites",
-        card3_desc: "Save important contents and access them easily.",
-        card4_title: "Subscribe",
-        card4_desc: "Stay informed about updated contents and new guides.",
-        news_title: "Subscribe to stay informed about updated contents and new guides!",
-        news_desc: "Only important info, no spam.",
-        sub_btn: "Subscribe",
-        b1_title: "Unbiased Info",
-        b1_desc: "All contents are prepared and edited independently.",
-        b2_title: "Reliable Source",
-        b2_desc: "Information compiled from scientific sources and official data.",
-        b3_title: "Privacy Protection",
-        b3_desc: "Your personal data is securely protected.",
-        b4_title: "User Centric",
-        b4_desc: "Clear and fast access tailored to your needs.",
-        footer_rights: "© 2026 Eshop Info Platform. All rights reserved.",
-        f_about: "About Us",
-        f_terms: "Terms of Use",
-        f_privacy: "Privacy Policy",
-        f_contact: "Contact",
-        m_home: "Home",
-        m_search: "Search",
-        m_support: "Support",
-        m_subscribe: "Subscribe",
-        m_profile: "Profile"
-    },
-    ko: {
-        nav_home: "홈",
-        nav_guide: "정보 가이드",
-        nav_support: "고객 지원",
-        nav_subscribe: "구독하기",
-        hero_title: "건강 제품에 대한 신뢰할 수 있는 정보에 <span>쉽게 접근하세요</span>",
-        hero_desc: "제품 성분, 사용법 및 궁금한 점을 빠르게 찾아보세요.",
-        search_btn: "검색",
-        cat_dental: "구강 및 치아 건강",
-        cat_hair: "헤어 케어",
-        cat_health: "건강",
-        cat_medical: "의료 및 정형외과",
-        cat_pharmacy: "약국 전용",
-        cat_special: "특수 카테고리",
-        cat_outlet: "아울렛",
-        card1_title: "정보 가이드",
-        card1_desc: "제품 성분, 사용 분야 및 상세 정보.",
-        card2_title: "전문가 지원",
-        card2_desc: "전문가 팀에게 질문을 보내고 지원을 받으세요.",
-        card3_title: "내 즐겨찾기",
-        card3_desc: "중요한 콘텐츠를 저장하고 쉽게 접근하세요.",
-        card4_title: "구독하기",
-        card4_desc: "최신 콘텐츠와 새로운 가이드 소식을 받아보세요.",
-        news_title: "구독하시고 최신 콘텐츠와 새로운 가이드 소식을 받아보세요!",
-        news_desc: "중요한 정보만 제공하며 스팸은 없습니다.",
-        sub_btn: "구독하기",
-        b1_title: "객관적인 정보",
-        b1_desc: "모든 콘텐츠는 독립적으로 준비되고 편집됩니다.",
-        b2_title: "신뢰할 수 있는 출처",
-        b2_desc: "과학적 출처와 공식 데이터를 기반으로 한 정보.",
-        b3_title: "개인정보 보호",
-        b3_desc: "귀하의 개인 데이터는 안전하게 보호됩니다.",
-        b4_title: "사용자 중심",
-        b4_desc: "필요에 맞춘 명확하고 빠른 접근성.",
-        footer_rights: "© 2026 Eshop 정보 플랫폼. 모든 권리 보유.",
-        f_about: "회사 소개",
-        f_terms: "이용 약관",
-        f_privacy: "개인정보 처리방침",
-        f_contact: "연락처",
-        m_home: "홈",
-        m_search: "검색",
-        m_support: "지원",
-        m_subscribe: "구독",
-        m_profile: "프로필"
-    }
-};
+/**
+ * ============================================================================
+ * MediFinder Platform - Production-Grade Main Script
+ * Features: Multilingual, Draggable Slider, Live Search, Filter Matrix,
+ *           Modal Manager, LocalStorage Bookmarks, Notification Toast System.
+ * ============================================================================
+ */
 
-function changeLanguage() {
-    const lang = document.getElementById("language-selector").value;
-    const elements = document.querySelectorAll("[data-lang]");
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Application State & Multilingual Dictionary
+    const state = {
+        currentLang: 'en',
+        currentCategory: 'all',
+        currentFilter: 'all',
+        searchQuery: '',
+        favorites: JSON.parse(localStorage.getItem('medifinder_favorites')) || []
+    };
 
-    elements.forEach((el) => {
-        const key = el.getAttribute("data-lang");
-        if (translations[lang] && translations[lang][key]) {
-            el.innerHTML = translations[lang][key];
+    const translations = {
+        en: {
+            heroTitle: "Find Safe Medication Information",
+            heroDesc: "Search medical drugs instantly by symptom, active ingredient, or safety guidelines tailored for international visitors.",
+            searchPlaceholder: "Search drug name, symptom (e.g., Ibuprofen, Cold)...",
+            searchBtn: "Search",
+            categoriesTitle: "Popular Categories",
+            catAll: "All Items",
+            catPain: "Pain Relief",
+            catCold: "Cold & Flu",
+            catDigestive: "Digestive",
+            catVitamin: "Vitamins",
+            catSafety: "Pregnancy Safe",
+            filterAll: "All",
+            filterOtc: "OTC Available",
+            filterSafe: "Safe Profile",
+            filterCaution: "Check Warning",
+            detailsBtn: "Details →",
+            footerText: "© 2026 MediFinder Platform. Designed for Global Communities. All rights reserved."
+        },
+        ko: {
+            heroTitle: "안전한 의약품 정보 검색 플랫폼",
+            heroDesc: "외국인 및 임산부를 위한 증상별, 성분별 맞춤형 의약품 안전 정보를 실시간으로 확인하세요.",
+            searchPlaceholder: "약품명, 증상 검색 (예: 이부프로펜, 감기)...",
+            searchBtn: "검색",
+            categoriesTitle: "인기 카테고리",
+            catAll: "전체 품목",
+            catPain: "진통/소염",
+            catCold: "감기/기침",
+            catDigestive: "소화기",
+            catVitamin: "비타민/영양",
+            catSafety: "임산부 안심",
+            filterAll: "전체",
+            filterOtc: "일반의약품(OTC)",
+            filterSafe: "안심 프로필",
+            filterCaution: "주의사항 확인",
+            detailsBtn: "상세정보 →",
+            footerText: "© 2026 MediFinder Platform. 글로벌 커뮤니티를 위한 맞춤형 플랫폼. All rights reserved."
+        },
+        tr: {
+            heroTitle: "Güvenli İlaç Bilgi Platformu",
+            heroDesc: "Uluslararası ziyaretçiler ve hamileler için semptom, etken madde veya güvenlik kılavuzlarına göre anında ilaç arayın.",
+            searchPlaceholder: "İlaç adı veya semptom arayın (örn. İbuprofen, Soğuk algınlığı)...",
+            searchBtn: "Ara",
+            categoriesTitle: "Popüler Kategoriler",
+            catAll: "Tüm Ürünler",
+            catPain: "Ağrı Kesici",
+            catCold: "Soğuk Algınlığı",
+            catDigestive: "Sindirim",
+            catVitamin: "Vitaminler",
+            catSafety: "Gebelik Güvenli",
+            filterAll: "Tümü",
+            filterOtc: "Reçetesiz (OTC)",
+            filterSafe: "Güvenli Profil",
+            filterCaution: "Uyarılara Bak",
+            detailsBtn: "Detaylar →",
+            footerText: "© 2026 MediFinder Platformu. Küresel Topluluklar için Tasarlanmıştır. Tüm hakları saklıdır."
         }
-    });
-}
+    };
 
-document.addEventListener("DOMContentLoaded", () => {
-    const slider = document.querySelector('.category-circles-wrapper');
-    let isDown = false;
-    let startX;
-    let scrollLeft;
+    // 2. DOM Elements Cache
+    const elements = {
+        languageSelect: document.getElementById('languageSelect'),
+        heroTitle: document.getElementById('heroTitle'),
+        heroDesc: document.getElementById('heroDesc'),
+        searchInput: document.getElementById('searchInput'),
+        searchBtn: document.getElementById('searchBtn'),
+        categorySlider: document.getElementById('categorySlider'),
+        categoryItems: document.querySelectorAll('.category-item'),
+        filterChips: document.querySelectorAll('.filter-chip'),
+        drugCards: document.querySelectorAll('.drug-card'),
+        drugModal: document.getElementById('drugModal'),
+        modalTitle: document.getElementById('modalTitle'),
+        modalSubtitle: document.getElementById('modalSubtitle'),
+        modalDesc: document.getElementById('modalDesc')
+    };
 
+    // 3. Multilingual UI Update Engine
+    function updateLanguage(lang) {
+        state.currentLang = lang;
+        const t = translations[lang] || translations.en;
+
+        if (elements.heroTitle) elements.heroTitle.textContent = t.heroTitle;
+        if (elements.heroDesc) elements.heroDesc.textContent = t.heroDesc;
+        if (elements.searchInput) elements.searchInput.placeholder = t.searchPlaceholder;
+        if (elements.searchBtn) elements.searchBtn.querySelector('span').textContent = t.searchBtn;
+
+        // Update category titles dynamically if mapped
+        document.querySelectorAll('.category-item').forEach(item => {
+            const catKey = item.getAttribute('data-category');
+            const nameEl = item.querySelector('.category-name');
+            if (nameEl && t['cat' + capitalize(catKey)]) {
+                nameEl.textContent = t['cat' + capitalize(catKey)];
+            }
+        });
+    }
+
+    function capitalize(str) {
+        if (!str) return '';
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    if (elements.languageSelect) {
+        elements.languageSelect.addEventListener('change', (e) => {
+            updateLanguage(e.target.value);
+            showToast(`Language changed to ${e.target.value.toUpperCase()}`);
+        });
+    }
+
+    // 4. Draggable Category Slider Implementation (Mouse & Touch Inertia)
+    const slider = elements.categorySlider;
     if (slider) {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
         slider.addEventListener('mousedown', (e) => {
             isDown = true;
-            slider.style.cursor = 'grabbing';
+            slider.classList.add('active');
             startX = e.pageX - slider.offsetLeft;
             scrollLeft = slider.scrollLeft;
         });
 
         slider.addEventListener('mouseleave', () => {
             isDown = false;
-            slider.style.cursor = 'default';
+            slider.classList.remove('active');
         });
 
         slider.addEventListener('mouseup', () => {
             isDown = false;
-            slider.style.cursor = 'default';
+            slider.classList.remove('active');
         });
 
         slider.addEventListener('mousemove', (e) => {
             if (!isDown) return;
             e.preventDefault();
             const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2.5; // Drag speed coefficient
+            slider.scrollLeft = scrollLeft - walk;
+        });
+
+        // Touch support for mobile devices
+        slider.addEventListener('touchstart', (e) => {
+            isDown = true;
+            startX = e.touches[0].pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+
+        slider.addEventListener('touchend', () => {
+            isDown = false;
+        });
+
+        slider.addEventListener('touchmove', (e) => {
+            if (!isDown) return;
+            const x = e.touches[0].pageX - slider.offsetLeft;
             const walk = (x - startX) * 2;
             slider.scrollLeft = scrollLeft - walk;
         });
     }
+
+    // 5. Unified Filtering & Search Matrix Engine
+    function filterCards() {
+        const query = state.searchQuery.toLowerCase();
+        const activeCat = state.currentCategory;
+        const activeFilter = state.currentFilter;
+
+        elements.drugCards.forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            const cardFilters = card.getAttribute('data-filter') || '';
+            const title = card.querySelector('.drug-title').textContent.toLowerCase();
+            const subtitle = card.querySelector('.drug-subtitle').textContent.toLowerCase();
+            const desc = card.querySelector('.drug-desc').textContent.toLowerCase();
+
+            // Match conditions
+            const matchesCategory = (activeCat === 'all' || cardCategory === activeCat);
+            const matchesChip = (activeFilter === 'all' || cardFilters.includes(activeFilter));
+            const matchesSearch = (title.includes(query) || subtitle.includes(query) || desc.includes(query));
+
+            if (matchesCategory && matchesChip && matchesSearch) {
+                card.style.display = 'flex';
+                // Add fade-in animation effect
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // Category click bindings
+    elements.categoryItems.forEach(item => {
+        item.addEventListener('click', () => {
+            elements.categoryItems.forEach(i => i.classList.remove('selected'));
+            item.classList.add('selected');
+            state.currentCategory = item.getAttribute('data-category');
+            filterCards();
+        });
+    });
+
+    // Filter chip click bindings
+    elements.filterChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            elements.filterChips.forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            state.currentFilter = chip.getAttribute('data-filter');
+            filterCards();
+        });
+    });
+
+    // Real-time live search listener
+    if (elements.searchInput) {
+        elements.searchInput.addEventListener('input', (e) => {
+            state.searchQuery = e.target.value.trim();
+            filterCards();
+        });
+    }
+
+    // 6. Modal Popup Management System
+    window.openModal = function(title, subtitle, desc) {
+        if (elements.modalTitle) elements.modalTitle.textContent = title;
+        if (elements.modalSubtitle) elements.modalSubtitle.textContent = subtitle;
+        if (elements.modalDesc) elements.modalDesc.textContent = desc;
+        if (elements.drugModal) elements.drugModal.classList.add('open');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    window.closeModal = function() {
+        if (elements.drugModal) elements.drugModal.classList.remove('open');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Close modal via backdrop click
+    window.addEventListener('click', (e) => {
+        if (elements.drugModal && e.target === elements.drugModal) {
+            closeModal();
+        }
+    });
+
+    // Escape key listener for closing modal
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    });
+
+    // 7. Notification Toast Feedback System
+    function showToast(message) {
+        const existingToast = document.getElementById('toastNotification');
+        if (existingToast) existingToast.remove();
+
+        const toast = document.createElement('div');
+        toast.id = 'toastNotification';
+        toast.textContent = message;
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: #0f172a;
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            transform: translateY(10px);
+        `;
+
+        document.body.appendChild(toast);
+        
+        // Trigger smooth entrance
+        setTimeout(() => {
+            toast.style.opacity = '1';
+            toast.style.transform = 'translateY(0)';
+        }, 10);
+
+        // Auto dismiss after 3 seconds
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(10px)';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    // Initialize state
+    console.info('MediFinder Platform initialized successfully with enhanced script architecture.');
 });

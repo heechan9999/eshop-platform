@@ -1,630 +1,1543 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EShop Bilgi Platformu</title>
+    <title>EShop Bilgi Platformu - Sağlık Ürünleri ve Güvenilir Rehber (v2 - Detaylı Sürüm)</title>
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts Preconnect & Stylesheet -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- External Stylesheet / Internal Comprehensive Styles -->
     <style>
+        /* ==========================================================================
+           1. CSS RESET & ROOT VARIABLES
+           ========================================================================== */
         :root {
-            --primary: #ed1c24;
-            --primary-dark: #c81016;
-            --secondary: #0a192f;
-            --text: #2d3748;
-            --text-light: #718096;
-            --bg-color: #f7fafc;
-            --white: #ffffff;
-            --border: #e2e8f0;
-            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.02);
-            --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.05);
-            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.08);
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #0ea5e9;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-main: #f8fafc;
+            --bg-white: #ffffff;
+            --border-color: #e2e8f0;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * {
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-main);
             line-height: 1.6;
-            padding-bottom: 70px;
+            -webkit-font-smoothing: antialiased;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
+        /* ==========================================================================
+           2. UTILITY CLASSES & CONTAINER
+           ========================================================================== */
         .container {
-            max-width: 1200px;
+            width: 100%;
+            max-width: 1280px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
-        /* Header Styles */
-        header {
-            background: var(--white);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
-            border-bottom: 1px solid var(--border);
+        .text-center { text-align: center; }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-10 { gap: 10px; }
+
+        /* ==========================================================================
+           3. TOP NOTIFICATION BAR
+           ========================================================================== */
+        .top-notification-bar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: #ffffff;
+            font-size: 13px;
+            padding: 8px 0;
+            font-weight: 500;
         }
 
-        .nav {
+        .top-bar-flex {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 90px;
+        }
+
+        .top-bar-links a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 15px;
+            transition: var(--transition);
+        }
+
+        .top-bar-links a:hover {
+            text-decoration: underline;
+            opacity: 0.9;
+        }
+
+        /* ==========================================================================
+           4. HEADER & NAVIGATION BAR
+           ========================================================================== */
+        .main-header {
+            background-color: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 75px;
         }
 
         .logo {
             display: flex;
             align-items: center;
+            text-decoration: none;
         }
 
-        .logo img {
-            height: 52px;
-            max-width: 220px;
+        .brand-logo-img {
+            height: 40px;
             object-fit: contain;
         }
 
-        nav ul {
+        .desktop-nav .nav-list {
             display: flex;
             list-style: none;
-            gap: 35px;
+            gap: 30px;
         }
 
-        nav ul a {
-            font-weight: 600;
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
             font-size: 15px;
-            color: var(--text);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary-color);
             transition: var(--transition);
         }
 
-        nav ul a:hover {
-            color: var(--primary);
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
         }
 
-        .lang-btn {
-            padding: 8px 14px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--white);
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .lang-select-dropdown {
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-white);
+            color: var(--text-main);
+            font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
-            font-weight: 600;
-            color: var(--text);
+            transition: var(--transition);
         }
 
-        .menu-btn {
+        .lang-select-dropdown:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .mobile-menu-toggle-btn {
             display: none;
-            font-size: 24px;
             background: none;
             border: none;
             cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            padding: 5px;
         }
 
-        /* Hero Section (레퍼런스 1번: 배경 이미지 자연 블렌딩 및 웅장한 레이아웃) */
-        .hero {
-            position: relative;
-            padding: 70px 0 90px 0;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            overflow: hidden;
+        .mobile-menu-toggle-btn .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-main);
+            border-radius: 2px;
+            transition: var(--transition);
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.85) 60%, rgba(255,255,255,0.6) 100%);
-            z-index: 1;
+        /* ==========================================================================
+           5. MOBILE SIDEBAR MENU
+           ========================================================================== */
+        .mobile-sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1099;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
         }
 
-        .hero-container {
-            position: relative;
-            z-index: 2;
+        .mobile-sidebar-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: var(--bg-white);
+            z-index: 1100;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
             display: flex;
             flex-direction: column;
-            max-width: 850px;
-            margin: 0 auto;
-            text-align: left;
         }
 
-        .hero-text-content h1 {
-            font-size: 46px;
-            line-height: 1.25;
-            margin-bottom: 20px;
-            color: var(--secondary);
-            font-weight: 800;
+        .mobile-sidebar.open {
+            right: 0;
         }
 
-        .hero-text-content h1 span {
-            color: var(--primary);
-        }
-
-        .hero-text-content p {
-            font-size: 18px;
-            color: var(--text-light);
-            margin-bottom: 30px;
-        }
-
-        /* Search Box Styles */
-        .search-box {
-            width: 100%;
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
             display: flex;
-            background: var(--white);
-            border-radius: 50px;
-            padding: 8px;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border);
-            margin-bottom: 25px;
-            transition: var(--transition);
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .search-box:focus-within {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(237, 28, 36, 0.1);
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 700;
         }
 
-        .search-box input {
-            flex: 1;
-            padding: 14px 24px;
+        .sidebar-close-btn {
+            background: none;
             border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            outline: none;
-            background: transparent;
-            color: var(--text);
-        }
-
-        .search-box button {
-            background-color: var(--primary);
-            color: var(--white);
-            border: none;
-            border-radius: 50px;
-            padding: 0 36px;
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 24px;
             cursor: pointer;
-            transition: var(--transition);
+            color: var(--text-muted);
+        }
+
+        .sidebar-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .sidebar-nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sidebar-nav-list li a {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
         }
 
-        .search-box button:hover {
+        .sidebar-nav-list li a:hover {
+            background-color: var(--bg-main);
+            color: var(--primary-color);
+        }
+
+        /* ==========================================================================
+           6. HERO SECTION
+           ========================================================================== */
+        .hero-section {
+            padding: 60px 0 80px;
+            background: linear-gradient(180deg, #ffffff 0%, var(--bg-main) 100%);
+        }
+
+        .hero-container-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-badge-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 0 rgba(37, 99, 235, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(37, 99, 235, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+        }
+
+        .hero-main-title {
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+
+        .hero-main-title span {
+            color: var(--primary-color);
+        }
+
+        .hero-description-text {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        /* Search Box */
+        .search-box-wrapper {
+            display: flex;
+            background-color: var(--bg-white);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 6px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 35px;
+            transition: var(--transition);
+        }
+
+        .search-box-wrapper:focus-within {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-input-group {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            padding: 0 12px;
+            gap: 10px;
+        }
+
+        .search-icon-svg {
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .search-input-group input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            color: var(--text-main);
+            background: transparent;
+        }
+
+        .search-action-btn {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-action-btn:hover {
             background-color: var(--primary-dark);
         }
 
-        /* 레퍼런스 3번: 검색창 아래 원형 카테고리 이미지 바벨 */
+        /* Category Circles Slider */
         .category-circles-wrapper {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             overflow-x: auto;
-            padding: 10px 5px;
-            width: 100%;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
+            padding-bottom: 10px;
+            scrollbar-width: thin;
         }
 
         .category-circles-wrapper::-webkit-scrollbar {
-            display: none;
+            height: 6px;
+        }
+
+        .category-circles-wrapper::-webkit-scrollbar-thumb {
+            background-color: var(--border-color);
+            border-radius: 3px;
         }
 
         .category-circle-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
-            text-align: center;
+            text-decoration: none;
             flex-shrink: 0;
             width: 90px;
-            cursor: pointer;
-            transition: var(--transition);
+            text-align: center;
+            gap: 8px;
         }
 
         .circle-img-box {
-            width: 76px;
-            height: 76px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
-            overflow: hidden;
-            background: var(--white);
-            border: 2px solid var(--border);
-            box-shadow: var(--shadow-sm);
+            background-color: var(--bg-white);
+            border: 2px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
             transition: var(--transition);
-        }
-
-        .circle-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
         }
 
         .category-circle-item:hover .circle-img-box {
-            border-color: var(--primary);
+            border-color: var(--primary-color);
             transform: translateY(-4px);
             box-shadow: var(--shadow-md);
         }
 
-        .category-circle-item:hover span {
-            color: var(--primary);
-            font-weight: 700;
+        .circle-img-box img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .circle-img-box.red-bg {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
         }
 
         .category-circle-item span {
             font-size: 12px;
-            font-weight: 600;
-            color: var(--text);
-            line-height: 1.2;
+            font-weight: 500;
+            color: var(--text-main);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
-        .circle-img-box.red-bg {
-            background-color: var(--primary);
-            border-color: var(--primary);
-        }
-        
-        .circle-img-box.red-bg img {
-            padding: 8px;
+        /* Hero Right Illustration */
+        .hero-image-card-wrapper {
+            position: relative;
         }
 
-        /* Features Section */
-        .features {
-            padding: 50px 0;
+        .hero-image-inner-container {
+            background-color: var(--bg-white);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
         }
 
-        .features-grid {
+        .hero-illustration-img {
+            width: 100%;
+            height: auto;
+            border-radius: var(--radius-sm);
+            display: block;
+        }
+
+        /* ==========================================================================
+           7. FEATURES SECTION
+           ========================================================================== */
+        .features-section {
+            padding: 80px 0;
+            background-color: var(--bg-white);
+        }
+
+        .section-title-box {
+            margin-bottom: 50px;
+        }
+
+        .section-title-box h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .section-title-box p {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        .features-grid-layout {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
+            gap: 25px;
         }
 
-        .feature-card {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 30px 24px;
+        .feature-card-item {
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            text-decoration: none;
+            color: var(--text-main);
             transition: var(--transition);
             display: flex;
             flex-direction: column;
-            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
         }
 
-        .feature-card:hover {
-            border-color: var(--primary);
+        .feature-card-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
             box-shadow: var(--shadow-md);
-            transform: translateY(-6px);
+            background-color: var(--bg-white);
         }
 
-        .feature-icon {
-            font-size: 28px;
-            margin-bottom: 18px;
-            background: #fff5f5;
-            color: var(--primary);
-            width: 56px;
-            height: 56px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 16px;
-        }
-
-        .feature-card h3 {
-            font-size: 18px;
-            margin-bottom: 8px;
-            color: var(--secondary);
-            font-weight: 700;
-        }
-
-        .feature-card p {
-            font-size: 14px;
-            color: var(--text-light);
+        .feature-icon-box {
+            font-size: 32px;
             margin-bottom: 20px;
         }
 
-        .feature-arrow {
-            margin-top: auto;
-            color: var(--text-light);
-            font-weight: bold;
+        .feature-card-item h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .feature-card-item p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            flex: 1;
+            line-height: 1.6;
+        }
+
+        .feature-link-arrow {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-color);
             transition: var(--transition);
         }
 
-        .feature-card:hover .feature-arrow {
-            color: var(--primary);
-            transform: translateX(4px);
+        .feature-card-item:hover .feature-link-arrow {
+            transform: translateX(5px);
         }
 
-        /* Newsletter Section */
-        .newsletter { padding: 30px 0 50px 0; }
-        .newsletter-box {
-            background: var(--secondary);
-            color: var(--white);
-            border-radius: 24px;
-            padding: 45px;
+        /* ==========================================================================
+           8. PRODUCT CATALOG SECTION
+           ========================================================================== */
+        .catalog-section {
+            padding: 80px 0;
+            background-color: var(--bg-main);
+        }
+
+        .catalog-header-flex {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 40px;
             flex-wrap: wrap;
-            gap: 25px;
-            box-shadow: var(--shadow-md);
+            gap: 20px;
         }
 
-        .newsletter-content { display: flex; align-items: center; gap: 24px; flex: 1; }
-        .newsletter-icon { font-size: 42px; background: rgba(255,255,255,0.1); width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; border-radius: 20px; }
-        .newsletter-text h3 { font-size: 20px; margin-bottom: 6px; font-weight: 700; }
-        .newsletter-text p { color: #a0aec0; font-size: 14px; }
-        .newsletter-form { display: flex; gap: 12px; width: 100%; max-width: 420px; }
-        .newsletter-form input { flex: 1; padding: 14px 20px; border-radius: 12px; border: none; outline: none; font-size: 14px; }
-        .newsletter-form button { padding: 14px 26px; background: var(--primary); color: var(--white); border: none; border-radius: 12px; font-weight: 700; cursor: pointer; transition: var(--transition); }
-        .newsletter-form button:hover { background: var(--primary-dark); }
+        .catalog-filter-tabs {
+            display: flex;
+            gap: 10px;
+            background-color: var(--bg-white);
+            padding: 6px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+        }
 
-        /* Trust Features */
-        .trust-features { padding: 60px 0; background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center; }
-        .trust-icon { font-size: 36px; margin-bottom: 15px; }
-        .trust-item h4 { color: var(--secondary); margin-bottom: 8px; font-size: 17px; font-weight: 700; }
-        .trust-item p { font-size: 13px; color: var(--text-light); }
+        .filter-tab {
+            background: none;
+            border: none;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 6px;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
 
-        /* Footer */
-        footer { padding: 35px 0; background: var(--bg-color); }
-        .footer-flex { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-light); }
-        .footer-links { display: flex; gap: 25px; }
-        .footer-links a:hover { color: var(--primary); }
+        .filter-tab.active, .filter-tab:hover {
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
 
-        /* Mobile Bottom Navigation */
-        .mobile-bottom-nav {
+        .catalog-grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .catalog-card {
+            background-color: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .catalog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 4px;
+            z-index: 2;
+        }
+
+        .product-badge.green { background-color: var(--success-color); }
+        .product-badge.blue { background-color: var(--secondary-color); }
+
+        .product-thumb {
+            height: 200px;
+            background-color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-thumb img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            transition: var(--transition);
+        }
+
+        .catalog-card:hover .product-thumb img {
+            transform: scale(1.08);
+        }
+
+        .product-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .product-cat-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .product-info h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .product-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .rating {
+            font-size: 13px;
+            font-weight: 600;
+            color: #d97706;
+        }
+
+        .detail-btn {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .detail-btn:hover {
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
+
+        /* ==========================================================================
+           9. NEWSLETTER SECTION
+           ========================================================================== */
+        .newsletter-section {
+            padding: 60px 0;
+            background-color: var(--bg-white);
+        }
+
+        .newsletter-box-card {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: var(--radius-lg);
+            padding: 50px;
+            color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .newsletter-content-group {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .newsletter-icon-box {
+            font-size: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: var(--radius-md);
+        }
+
+        .newsletter-text-block h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .newsletter-text-block p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .newsletter-form-group {
+            display: flex;
+            gap: 10px;
+            min-width: 400px;
+        }
+
+        .newsletter-form-group input {
+            flex: 1;
+            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            border: none;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .newsletter-form-group button {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            padding: 14px 24px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-form-group button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* ==========================================================================
+           10. FAQ SECTION
+           ========================================================================== */
+        .faq-section {
+            padding: 80px 0;
+            background-color: var(--bg-main);
+        }
+
+        .faq-accordion-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .faq-item {
+            background-color: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-question-btn {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .faq-icon {
+            font-size: 20px;
+            transition: var(--transition);
+            color: var(--primary-color);
+        }
+
+        .faq-answer-panel {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .faq-item.active .faq-answer-panel {
+            padding: 0 20px 20px 20px;
+            max-height: 200px;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        /* ==========================================================================
+           11. TRUST FEATURES SECTION
+           ========================================================================== */
+        .trust-features-section {
+            padding: 60px 0;
+            background-color: var(--bg-white);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .trust-grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .trust-item-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .trust-emoji-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .trust-item-box h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .trust-item-box p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ==========================================================================
+           12. FOOTER SECTION
+           ========================================================================== */
+        .main-footer-section {
+            background-color: #0f172a;
+            color: #94a3b8;
+            padding: 80px 0 30px;
+        }
+
+        .footer-main-flex {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-logo-img {
+            height: 40px;
+            margin-bottom: 20px;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-about-text {
+            font-size: 14px;
+            line-height: 1.7;
+            max-width: 350px;
+        }
+
+        .footer-col-links h4, .footer-col-social h4 {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-col-links ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-col-links ul li a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .footer-col-links ul li a:hover {
+            color: #ffffff;
+        }
+
+        .social-icons-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons-group a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .social-icons-group a:hover {
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
+
+        .footer-bottom-bar {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 13px;
+        }
+
+        /* ==========================================================================
+           13. MOBILE BOTTOM NAVIGATION BAR
+           ========================================================================== */
+        .mobile-bottom-nav-bar {
             display: none;
             position: fixed;
-            bottom: 0; left: 0; width: 100%;
-            background: var(--white);
-            border-top: 1px solid var(--border);
-            justify-content: space-around;
-            padding: 10px 0 12px 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-white);
+            border-top: 1px solid var(--border-color);
             z-index: 1000;
-            box-shadow: 0 -4px 15px rgba(0,0,0,0.05);
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
         }
-        .mobile-nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 10px; color: var(--text-light); font-weight: 600; }
-        .mobile-nav-item.active { color: var(--primary); }
-        .mobile-nav-item .icon { font-size: 18px; }
 
-        /* Responsive Queries */
-        @media (max-width: 968px) {
-            .hero-text-content h1 { font-size: 32px; }
-            .features-grid { grid-template-columns: 1fr 1fr; }
-            .trust-grid { grid-template-columns: 1fr 1fr; }
-            nav ul { display: none; }
-            .menu-btn { display: block; }
-            .newsletter-box { flex-direction: column; text-align: center; }
-            .newsletter-content { flex-direction: column; }
-            .newsletter-form { max-width: 100%; }
-            .footer-flex { flex-direction: column; text-align: center; gap: 12px; }
-            .mobile-bottom-nav { display: flex; }
-            body { padding-bottom: 80px; }
+        .mobile-nav-item-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 500;
+            gap: 4px;
+            transition: var(--transition);
+        }
+
+        .mobile-nav-item-link .icon {
+            font-size: 18px;
+        }
+
+        .mobile-nav-item-link.active, .mobile-nav-item-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* ==========================================================================
+           14. RESPONSIVE MEDIA QUERIES
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .hero-container-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .features-grid-layout, .catalog-grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .trust-grid-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .footer-main-flex {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            .header-actions .lang-select-dropdown {
+                display: none;
+            }
+            .mobile-menu-toggle-btn {
+                display: flex;
+            }
+            .mobile-bottom-nav-bar {
+                display: flex;
+            }
+            body {
+                padding-bottom: 60px;
+            }
+            .features-grid-layout, .catalog-grid-container {
+                grid-template-columns: 1fr;
+            }
+            .trust-grid-container {
+                grid-template-columns: 1fr;
+            }
+            .newsletter-box-card {
+                flex-direction: column;
+                padding: 30px 20px;
+                text-align: center;
+            }
+            .newsletter-content-group {
+                flex-direction: column;
+            }
+            .newsletter-form-group {
+                min-width: 100%;
+                flex-direction: column;
+            }
+            .hero-main-title {
+                font-size: 32px;
+            }
         }
     </style>
 </head>
-
 <body>
 
-    <!-- Header -->
-    <header>
-        <div class="container nav">
+    <!-- ==========================================
+         TOP NOTIFICATION BAR
+         ========================================== -->
+    <div class="top-notification-bar">
+        <div class="container top-bar-flex">
+            <span data-lang="top_notice">🎉 Yeni nesil sağlık bilgi platformumuz v2 yayında! Güvenilir içerikler için keşfetmeye başlayın.</span>
+            <div class="top-bar-links">
+                <a href="#destek" data-lang="top_help">Yardım</a>
+                <a href="#hakkimizda" data-lang="top_contact">İletişim</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         HEADER & NAVIGATION BAR
+         ========================================== -->
+    <header class="main-header">
+        <div class="container nav-container">
             <a href="index.html" class="logo">
-                <img src="images/logo.jpg" alt="EShop Logo">
+                <img src="images/logo.jpg" alt="EShop Logo" class="brand-logo-img">
             </a>
 
-            <nav>
-                <ul>
-                    <li><a href="index.html" data-lang="nav_home">Ana Sayfa</a></li>
-                    <li><a href="#" data-lang="nav_guide">Bilgi Rehberi</a></li>
-                    <li><a href="#" data-lang="nav_support">Destek</a></li>
-                    <li><a href="#" data-lang="nav_subscribe">Abone Ol</a></li>
+            <nav class="desktop-nav">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link active" data-lang="nav_home">Ana Sayfa</a></li>
+                    <li><a href="#rehber" class="nav-link" data-lang="nav_guide">Bilgi Rehberi</a></li>
+                    <li><a href="#katalog" class="nav-link" data-lang="nav_catalog">Katalog</a></li>
+                    <li><a href="#destek" class="nav-link" data-lang="nav_support">Destek</a></li>
+                    <li><a href="#abone" class="nav-link" data-lang="nav_subscribe">Abone Ol</a></li>
                 </ul>
             </nav>
 
-            <select id="language-selector" class="lang-btn" onchange="changeLanguage()">
-                <option value="tr">🇹🇷 TR</option>
-                <option value="en">🇺🇸 EN</option>
-                <option value="ko">🇰🇷 KO</option>
-            </select>
+            <div class="header-actions">
+                <select id="language-selector" class="lang-select-dropdown" onchange="switchLanguage(this.value)" aria-label="Dil Seçimi">
+                    <option value="tr">🇹🇷 Türkçe (TR)</option>
+                    <option value="en">🇺🇸 English (EN)</option>
+                    <option value="ko">🇰🇷 한국어 (KO)</option>
+                </select>
 
-            <button class="menu-btn" aria-label="Menu">☰</button>
+                <button class="mobile-menu-toggle-btn" id="mobileMenuToggle" aria-label="Mobil Menüyü Aç">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" style="background-image: url('images/뒷 배경.png');">
-        <div class="container hero-container">
-            <div class="hero-text-content">
-                <h1 data-lang="hero_title">
+    <!-- ==========================================
+         MOBILE SIDEBAR MENU
+         ========================================== -->
+    <div class="mobile-sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="sidebar-header">
+            <span class="sidebar-title" data-lang="menu_title">Menü</span>
+            <button class="sidebar-close-btn" id="sidebarClose">&times;</button>
+        </div>
+        <div class="sidebar-body">
+            <ul class="sidebar-nav-list">
+                <li><a href="index.html"><span class="icon">🏠</span> <span data-lang="nav_home">Ana Sayfa</span></a></li>
+                <li><a href="#rehber"><span class="icon">📄</span> <span data-lang="nav_guide">Bilgi Rehberi</span></a></li>
+                <li><a href="#katalog"><span class="icon">🔍</span> <span data-lang="nav_catalog">Katalog</span></a></li>
+                <li><a href="#destek"><span class="icon">💬</span> <span data-lang="nav_support">Destek</span></a></li>
+                <li><a href="#abone"><span class="icon">✉️</span> <span data-lang="nav_subscribe">Abone Ol</span></a></li>
+                <li><a href="#hakkimizda"><span class="icon">ℹ️</span> <span data-lang="f_about">Hakkımızda</span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         HERO SECTION
+         ========================================== -->
+    <section class="hero-section">
+        <div class="container hero-container-grid">
+            
+            <div class="hero-text-content-area">
+                <div class="hero-badge-tag">
+                    <span class="pulse-dot"></span> <span data-lang="hero_badge">Güvenilir Sağlık Veritabanı</span>
+                </div>
+                
+                <h1 class="hero-main-title" data-lang="hero_title">
                     Sağlık ürünleri hakkında güvenilir bilgiye <span>kolay erişim</span>
                 </h1>
-                <p data-lang="hero_desc">
-                    Ürün içerikleri, kullanım detayları ve merak ettiklerinize hızlıca ulaşın.
+                
+                <p class="hero-description-text" data-lang="hero_desc">
+                    Ürün içerikleri, kullanım detayları, yan etkiler ve merak ettiğiniz tüm detaylara hızlıca ulaşın. v2 sürümü ile daha hızlı ve kapsamlı.
                 </p>
 
                 <!-- Search Box -->
-                <div class="search-box">
-                    <input type="text" placeholder="Ürün adı, barkod, marka veya kullanıcı adı ara...">
-                    <button class="search-btn" data-lang="search_btn">
-                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        <span>Ara</span>
+                <div class="search-box-wrapper">
+                    <div class="search-input-group">
+                        <svg class="search-icon-svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <input type="text" id="mainSearchInput" placeholder="Ürün adı, barkod, marka veya etken madde ara..." aria-label="Arama Kutusu">
+                    </div>
+                    <button class="search-action-btn" id="mainSearchBtn">
+                        <span data-lang="search_btn">Ara</span>
                     </button>
                 </div>
 
-                <!-- Circular Category Images (Ref 3) -->
-                <div class="category-circles-wrapper">
+                <!-- Category Circles -->
+                <div class="category-circles-wrapper" id="categorySlider">
                     <a href="#agiz" class="category-circle-item">
-                        <div class="circle-img-box"><img src="images/agiz.png" alt="Ağız ve Diş Sağlığı"></div>
-                        <span data-lang="cat_dental">Ağız ve Diş Sağlığı</span>
+                        <div class="circle-img-box"><img src="images/agiz.png" alt="Diş" loading="lazy"></div>
+                        <span data-lang="cat_dental">Ağız ve Diş</span>
                     </a>
                     <a href="#sac" class="category-circle-item">
-                        <div class="circle-img-box"><img src="images/sac.png" alt="Saç Bakımı"></div>
+                        <div class="circle-img-box"><img src="images/sac.png" alt="Saç" loading="lazy"></div>
                         <span data-lang="cat_hair">Saç Bakımı</span>
                     </a>
                     <a href="#saglik" class="category-circle-item">
-                        <div class="circle-img-box"><img src="images/saglik.png" alt="Sağlık"></div>
+                        <div class="circle-img-box"><img src="images/saglik.png" alt="Sağlık" loading="lazy"></div>
                         <span data-lang="cat_health">Sağlık</span>
                     </a>
                     <a href="#medikal" class="category-circle-item">
-                        <div class="circle-img-box"><img src="images/medikal.png" alt="Medikal & Ortopedi"></div>
-                        <span data-lang="cat_medical">Medikal & Ortopedi</span>
+                        <div class="circle-img-box"><img src="images/medikal.png" alt="Medikal" loading="lazy"></div>
+                        <span data-lang="cat_medical">Medikal</span>
                     </a>
                     <a href="#eczane" class="category-circle-item">
-                        <div class="circle-img-box"><img src="images/eczane.png" alt="Eczaneniz İçin"></div>
-                        <span data-lang="cat_pharmacy">Eczaneniz İçin</span>
+                        <div class="circle-img-box"><img src="images/eczane.png" alt="Eczane" loading="lazy"></div>
+                        <span data-lang="cat_pharmacy">Eczane</span>
                     </a>
                     <a href="#ozel" class="category-circle-item">
-                        <div class="circle-img-box"><img src="images/ozel.png" alt="Özel Kategoriler"></div>
-                        <span data-lang="cat_special">Özel Kategoriler</span>
+                        <div class="circle-img-box"><img src="images/ozel.png" alt="Özel" loading="lazy"></div>
+                        <span data-lang="cat_special">Özel</span>
                     </a>
                     <a href="#outlet" class="category-circle-item">
-                        <div class="circle-img-box red-bg"><img src="images/outlet.png" alt="Outlet"></div>
+                        <div class="circle-img-box red-bg"><img src="images/outlet.png" alt="Outlet" loading="lazy"></div>
                         <span data-lang="cat_outlet">Outlet</span>
                     </a>
+                </div>
+
+            </div>
+
+            <!-- Right Illustration Card -->
+            <div class="hero-image-card-wrapper">
+                <div class="hero-image-inner-container">
+                    <img src="images/뒷 배경.png" alt="Arka Plan Görseli" class="hero-illustration-img">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==========================================
+         FEATURES SECTION
+         ========================================== -->
+    <section class="features-section" id="rehber">
+        <div class="container">
+            <div class="section-title-box text-center">
+                <h2 data-lang="feat_sec_title">Platform Hizmetlerimiz</h2>
+                <p data-lang="feat_sec_desc">İhtiyacınız olan bilgilere en hızlı ve güvenli şekilde ulaşın.</p>
+            </div>
+
+            <div class="features-grid-layout">
+                <a href="#bilgi-rehberi" class="feature-card-item">
+                    <div class="feature-icon-box">📄</div>
+                    <h3 data-lang="card1_title">Bilgi Rehberi</h3>
+                    <p data-lang="card1_desc">Ürün içerikleri, kullanım alanları ve detaylı bilimsel veriler.</p>
+                    <span class="feature-link-arrow" data-lang="inspect_text">İncele &rarr;</span>
+                </a>
+
+                <a href="#uzman-destegi" class="feature-card-item">
+                    <div class="feature-icon-box">💬</div>
+                    <h3 data-lang="card2_title">Uzman Desteği</h3>
+                    <p data-lang="card2_desc">Uzman ekibimize sorularınızı iletebilir, 7/24 destek alabilirsiniz.</p>
+                    <span class="feature-link-arrow" data-lang="ask_text">Soru Sor &rarr;</span>
+                </a>
+
+                <a href="#favoriler" class="feature-card-item">
+                    <div class="feature-icon-box">🔖</div>
+                    <h3 data-lang="card3_title">Favorilerim</h3>
+                    <p data-lang="card3_desc">Önemli gördüğünüz içerikleri kaydedin, kolayca tek tıkla ulaşın.</p>
+                    <span class="feature-link-arrow" data-lang="view_text">Görüntüle &rarr;</span>
+                </a>
+
+                <a href="#abone" class="feature-card-item">
+                    <div class="feature-icon-box">✉️</div>
+                    <h3 data-lang="card4_title">Abone Ol</h3>
+                    <p data-lang="card4_desc">Güncel içeriklerden ve yeni eklenen rehberlerden haberdar olun.</p>
+                    <span class="feature-link-arrow" data-lang="reg_text">Kayıt Ol &rarr;</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         PRODUCT CATALOG SECTION
+         ========================================== -->
+    <section class="catalog-section" id="katalog">
+        <div class="container">
+            <div class="catalog-header-flex">
+                <h2 data-lang="cat_sec_title">Popüler Ürünler ve İncelemeler</h2>
+                <div class="catalog-filter-tabs">
+                    <button class="filter-tab active" data-filter="all" data-lang="tab_all">Tümü</button>
+                    <button class="filter-tab" data-filter="dental" data-lang="tab_dental">Diş Sağlığı</button>
+                    <button class="filter-tab" data-filter="hair" data-lang="tab_hair">Saç Bakımı</button>
+                    <button class="filter-tab" data-filter="medical" data-lang="tab_medical">Medikal</button>
+                </div>
+            </div>
+
+            <div class="catalog-grid-container" id="catalogGrid">
+                <!-- Dynamic or Static Catalog Cards -->
+                <div class="catalog-card" data-category="dental">
+                    <div class="product-badge" data-lang="badge_pop">Popüler</div>
+                    <div class="product-thumb"><img src="images/agiz.png" alt="Diş" loading="lazy"></div>
+                    <div class="product-info">
+                        <span class="product-cat-name" data-lang="cat_dental">Ağız ve Diş Sağlığı</span>
+                        <h4>Premium Diş Bakım Seti</h4>
+                        <p class="product-desc">Günlük diş ve diş eti bakımı için formüle edilmiş profesyonel koruma kiti.</p>
+                        <div class="product-footer">
+                            <span class="rating">★ 4.9 (128)</span>
+                            <a href="#" class="detail-btn" data-lang="detail_btn">İncele</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="catalog-card" data-category="hair">
+                    <div class="product-badge green" data-lang="badge_new">Yeni</div>
+                    <div class="product-thumb"><img src="images/sac.png" alt="Saç" loading="lazy"></div>
+                    <div class="product-info">
+                        <span class="product-cat-name" data-lang="cat_hair">Saç Bakımı</span>
+                        <h4>Bitkisel Keratin Şampuanı</h4>
+                        <p class="product-desc">Doğal bitkisel özlerle zenginleştirilmiş dökülme karşıtı özel şampuan.</p>
+                        <div class="product-footer">
+                            <span class="rating">★ 4.8 (94)</span>
+                            <a href="#" class="detail-btn" data-lang="detail_btn">İncele</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="catalog-card" data-category="medical">
+                    <div class="product-badge blue" data-lang="badge_cert">Sertifikalı</div>
+                    <div class="product-thumb"><img src="images/medikal.png" alt="Medikal" loading="lazy"></div>
+                    <div class="product-info">
+                        <span class="product-cat-name" data-lang="cat_medical">Medikal & Ortopedi</span>
+                        <h4>Ergonomik Bel Destek Minderi</h4>
+                        <p class="product-desc">Uzun süreli oturmalarda omurga sağlığını destekleyen ortopedik tasarım.</p>
+                        <div class="product-footer">
+                            <span class="rating">★ 5.0 (215)</span>
+                            <a href="#" class="detail-btn" data-lang="detail_btn">İncele</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="catalog-card" data-category="health">
+                    <div class="product-badge" data-lang="badge_feat">Öne Çıkan</div>
+                    <div class="product-thumb"><img src="images/saglik.png" alt="Sağlık" loading="lazy"></div>
+                    <div class="product-info">
+                        <span class="product-cat-name" data-lang="cat_health">Sağlık</span>
+                        <h4>Multivitamin Kompleks Takviyesi</h4>
+                        <p class="product-desc">Bağışıklık sistemini destekleyen günlük vitamin ve mineral dengesi.</p>
+                        <div class="product-footer">
+                            <span class="rating">★ 4.7 (310)</span>
+                            <a href="#" class="detail-btn" data-lang="detail_btn">İncele</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features -->
-    <section class="features">
-        <div class="container features-grid">
-            <a href="#" class="feature-card">
-                <div class="feature-icon">📄</div>
-                <h3 data-lang="card1_title">Bilgi Rehberi</h3>
-                <p data-lang="card1_desc">Ürün içerikleri, kullanım alanları ve detaylı bilgiler.</p>
-                <span class="feature-arrow">→</span>
-            </a>
-            <a href="#" class="feature-card">
-                <div class="feature-icon">💬</div>
-                <h3 data-lang="card2_title">Uzman Desteği</h3>
-                <p data-lang="card2_desc">Uzman ekibimize sorularınızı iletebilir, destek alabilirsiniz.</p>
-                <span class="feature-arrow">→</span>
-            </a>
-            <a href="#" class="feature-card">
-                <div class="feature-icon">🔖</div>
-                <h3 data-lang="card3_title">Favorilerim</h3>
-                <p data-lang="card3_desc">Önemli gördüğünüz içerikleri kaydedin, kolayca ulaşın.</p>
-                <span class="feature-arrow">→</span>
-            </a>
-            <a href="#" class="feature-card">
-                <div class="feature-icon">✉️</div>
-                <h3 data-lang="card4_title">Abone Ol</h3>
-                <p data-lang="card4_desc">Güncel içeriklerden ve yeni buluşlardan haberdar olun.</p>
-                <span class="feature-arrow">→</span>
-            </a>
-        </div>
-    </section>
-
-    <!-- Newsletter -->
-    <section class="newsletter">
+    <!-- ==========================================
+         NEWSLETTER SECTION
+         ========================================== -->
+    <section class="newsletter-section" id="abone">
         <div class="container">
-            <div class="newsletter-box">
-                <div class="newsletter-content">
-                    <div class="newsletter-icon">✉️</div>
-                    <div class="newsletter-text">
+            <div class="newsletter-box-card">
+                <div class="newsletter-content-group">
+                    <div class="newsletter-icon-box">✉️</div>
+                    <div class="newsletter-text-block">
                         <h3 data-lang="news_title">Güncel içerikler ve yeni rehberlerden haberdar olmak için abone olun!</h3>
                         <p data-lang="news_desc">Sadece önemli bilgiler, spam yok.</p>
                     </div>
                 </div>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="E-posta adresiniz" required>
+                <form class="newsletter-form-group" onsubmit="event.preventDefault(); alert('Abone olduğunuz için teşekkür ederiz!');">
+                    <input type="email" placeholder="E-posta adresiniz" required aria-label="E-posta adresi">
                     <button type="submit" data-lang="sub_btn">Abone Ol</button>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- Trust Features -->
-    <section class="trust-features">
-        <div class="container trust-grid">
-            <div class="trust-item">
-                <div class="trust-icon">🛡️</div>
-                <h4 data-lang="b1_title">Tarafsız Bilgi</h4>
-                <p data-lang="b1_desc">Tüm içerikler bağımsız olarak hazırlanır ve düzenlenir.</p>
+    <!-- ==========================================
+         FAQ SECTION
+         ========================================== -->
+    <section class="faq-section" id="destek">
+        <div class="container">
+            <div class="section-title-box text-center">
+                <h2 data-lang="faq_sec_title">Sıkça Sorulan Sorular</h2>
+                <p data-lang="faq_sec_desc">Merak ettiğiniz konular hakkında hızlı yanıtlar alın.</p>
             </div>
-            <div class="trust-item">
-                <div class="trust-icon">✅</div>
-                <h4 data-lang="b2_title">Güvenilir Kaynak</h4>
-                <p data-lang="b2_desc">Bilgiler, bilimsel kaynaklar ve resmi verilerden derlenir.</p>
-            </div>
-            <div class="trust-item">
-                <div class="trust-icon">🔒</div>
-                <h4 data-lang="b3_title">Gizlilik Koruması</h4>
-                <p data-lang="b3_desc">Kişisel verileriniz güvenli bir şekilde korunur.</p>
-            </div>
-            <div class="trust-item">
-                <div class="trust-icon">👤</div>
-                <h4 data-lang="b4_title">Kullanıcı Odaklı</h4>
-                <p data-lang="b4_desc">İhtiyaçlarınıza uygun, anlaşılır ve hızlı erişim.</p>
+
+            <div class="faq-accordion-container">
+                <div class="faq-item">
+                    <button class="faq-question-btn">
+                        <span data-lang="faq_q1">Platform üzerindeki bilgiler ne kadar güvenilir?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer-panel">
+                        <p data-lang="faq_a1">Tüm içeriklerimiz bağımsız uzmanlar ve resmi bilimsel kaynaklar temel alınarak özenle derlenmekte ve güncellenmektedir.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question-btn">
+                        <span data-lang="faq_q2">Ürün içeriklerini nasıl arayabilirim?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer-panel">
+                        <p data-lang="faq_a2">Ana sayfada bulunan arama çubuğunu kullanarak ürün adını, barkodunu veya markasını anında aratabilirsiniz.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question-btn">
+                        <span data-lang="faq_q3">Uzman desteği almak ücretli mi?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer-panel">
+                        <p data-lang="faq_a3">Platformumuz üzerinden temel soru sorma ve rehberlere erişim tamamen ücretsizdir.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container footer-flex">
-            <p data-lang="footer_rights">© 2026 Eshop Bilgi Platformu. Tüm hakları saklıdır.</p>
-            <div class="footer-links">
-                <a href="#" data-lang="f_about">Hakkımızda</a>
-                <a href="#" data-lang="f_terms">Kullanım Koşulları</a>
-                <a href="#" data-lang="f_privacy">Gizlilik Politikası</a>
-                <a href="#" data-lang="f_contact">İletişim</a>
+    <!-- ==========================================
+         TRUST FEATURES SECTION
+         ========================================== -->
+    <section class="trust-features-section">
+        <div class="container trust-grid-container">
+            <div class="trust-item-box">
+                <div class="trust-emoji-icon">🛡️</div>
+                <h4 data-lang="b1_title">Tarafsız Bilgi</h4>
+                <p data-lang="b1_desc">Tüm içerikler bağımsız olarak hazırlanır ve düzenlenir.</p>
             </div>
+            <div class="trust-item-box">
+                <div class="trust-emoji-icon">✅</div>
+                <h4 data-lang="b2_title">Güvenilir Kaynak</h4>
+                <p data-lang="b2_desc">Bilgiler, bilimsel kaynaklar ve resmi verilerden derlenir.</p>
+            </div>
+            <div class="trust-item-box">
+                <div class="trust-emoji-icon">🔒</div>
+                <h4 data-lang="b3_title">Gizlilik Koruması</h4>
+                <p data-lang="b3_desc">Kişisel verileriniz güvenli bir şekilde korunur ve saklanır.</p>
+            </div>
+            <div class="trust-item-box">
+                <div class="trust-emoji-icon">👤</div>
+                <h4 data-lang="b4_title">Kullanıcı Odaklı</h4>
+                <p data-lang="b4_desc">İhtiyaçlarınıza uygun, anlaşılır ve hızlı erişim deneyimi.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         FOOTER SECTION
+         ========================================== -->
+    <footer class="main-footer-section" id="hakkimizda">
+        <div class="container footer-main-flex">
+            <div class="footer-col-about">
+                <img src="images/logo.jpg" alt="Logo Footer" class="footer-logo-img">
+                <p class="footer-about-text" data-lang="footer_about">Sağlık ürünleri ve güvenilir rehberlik hizmetleri için geliştirilmiş yeni nesil dijital çözüm platformudur.</p>
+            </div>
+            <div class="footer-col-links">
+                <h4 data-lang="footer_links_title">Hızlı Bağlantılar</h4>
+                <ul>
+                    <li><a href="#" data-lang="f_about">Hakkımızda</a></li>
+                    <li><a href="#" data-lang="f_terms">Kullanım Koşulları</a></li>
+                    <li><a href="#" data-lang="f_privacy">Gizlilik Politikası</a></li>
+                    <li><a href="#" data-lang="f_contact">İletişim</a></li>
+                </ul>
+            </div>
+            <div class="footer-col-social">
+                <h4 data-lang="footer_social_title">Sosyal Medya</h4>
+                <div class="social-icons-group">
+                    <a href="#" aria-label="Facebook">🌐</a>
+                    <a href="#" aria-label="Twitter">🐦</a>
+                    <a href="#" aria-label="Instagram">📸</a>
+                    <a href="#" aria-label="LinkedIn">💼</a>
+                </div>
+            </div>
+        </div>
+        <div class="container footer-bottom-bar">
+            <p data-lang="footer_rights">© 2026 Eshop Bilgi Platformu v2. Tüm hakları saklıdır.</p>
         </div>
     </footer>
 
-    <!-- Mobile Bottom Navigation -->
-    <div class="mobile-bottom-nav">
-        <a href="index.html" class="mobile-nav-item active">
+    <!-- ==========================================
+         MOBILE BOTTOM NAVIGATION BAR
+         ========================================== -->
+    <div class="mobile-bottom-nav-bar">
+        <a href="index.html" class="mobile-nav-item-link active">
             <span class="icon">🏠</span>
             <span data-lang="m_home">Ana Sayfa</span>
         </a>
-        <a href="#" class="mobile-nav-item">
+        <a href="#katalog" class="mobile-nav-item-link">
             <span class="icon">🔍</span>
             <span data-lang="m_search">Ara</span>
         </a>
-        <a href="#" class="mobile-nav-item">
+        <a href="#destek" class="mobile-nav-item-link">
             <span class="icon">💬</span>
             <span data-lang="m_support">Destek</span>
         </a>
-        <a href="#" class="mobile-nav-item">
+        <a href="#abone" class="mobile-nav-item-link">
             <span class="icon">✉️</span>
             <span data-lang="m_subscribe">Abone Ol</span>
         </a>
-        <a href="#" class="mobile-nav-item">
-            <span class="icon">👤</span>
-            <span data-lang="m_profile">Profil</span>
-        </a>
     </div>
 
-    <!-- JavaScript -->
+    <!-- ==========================================
+         JAVASCRIPT & LOCALIZATION LOGIC
+         ========================================== -->
     <script>
+        /* Multi-language dictionary for complete localization (TR, EN, KO) */
         const translations = {
             tr: {
+                top_notice: "🎉 Yeni nesil sağlık bilgi platformumuz v2 yayında! Güvenilir içerikler için keşfetmeye başlayın.",
+                top_help: "Yardım",
+                top_contact: "İletişim",
                 nav_home: "Ana Sayfa",
                 nav_guide: "Bilgi Rehberi",
+                nav_catalog: "Katalog",
                 nav_support: "Destek",
                 nav_subscribe: "Abone Ol",
+                menu_title: "Menü",
+                hero_badge: "Güvenilir Sağlık Veritabanı",
                 hero_title: "Sağlık ürünleri hakkında güvenilir bilgiye <span>kolay erişim</span>",
-                hero_desc: "Ürün içerikleri, kullanım detayları ve merak ettiklerinize hızlıca ulaşın.",
+                hero_desc: "Ürün içerikleri, kullanım detayları, yan etkiler ve merak ettiğiniz tüm detaylara hızlıca ulaşın. v2 sürümü ile daha hızlı ve kapsamlı.",
                 search_btn: "Ara",
                 cat_dental: "Ağız ve Diş Sağlığı",
                 cat_hair: "Saç Bakımı",
@@ -633,140 +1546,291 @@
                 cat_pharmacy: "Eczaneniz İçin",
                 cat_special: "Özel Kategoriler",
                 cat_outlet: "Outlet",
+                feat_sec_title: "Platform Hizmetlerimiz",
+                feat_sec_desc: "İhtiyacınız olan bilgilere en hızlı ve güvenli şekilde ulaşın.",
                 card1_title: "Bilgi Rehberi",
-                card1_desc: "Ürün içerikleri, kullanım alanları ve detaylı bilgiler.",
+                card1_desc: "Ürün içerikleri, kullanım alanları ve detaylı bilimsel veriler.",
                 card2_title: "Uzman Desteği",
-                card2_desc: "Uzman ekibimize sorularınızı iletebilir, destek alabilirsiniz.",
+                card2_desc: "Uzman ekibimize sorularınızı iletebilir, 7/24 destek alabilirsiniz.",
                 card3_title: "Favorilerim",
-                card3_desc: "Önemli gördüğünüz içerikleri kaydedin, kolayca ulaşın.",
+                card3_desc: "Önemli gördüğünüz içerikleri kaydedin, kolayca tek tıkla ulaşın.",
                 card4_title: "Abone Ol",
-                card4_desc: "Güncel içeriklerden ve yeni buluşlardan haberdar olun.",
-                news_title: "Güncel içerikler ve yeni rehberlerden haberdar olmak için abone olun!",
+                card4_desc: "Güncel içeriklerden ve yeni eklenen rehberlerden haberdar olun.",
+                inspect_text: "İncele →",
+                ask_text: "Soru Sor →",
+                view_text: "Görüntüle →",
+                reg_text: "Kayıt Ol →",
+                cat_sec_title: "Popüler Ürünler ve İncelemeler",
+                tab_all: "Tümü",
+                tab_dental: "Diş Sağlığı",
+                tab_hair: "Saç Bakımı",
+                tab_medical: "Medikal",
+                badge_pop: "Popüler",
+                badge_new: "Yeni",
+                badge_cert: "Sertifikalı",
+                badge_feat: "Öne Çıkan",
+                detail_btn: "İncele",
+                news_title: "Güncel içerikler ve yeni rehberlerden haberdar olun!",
                 news_desc: "Sadece önemli bilgiler, spam yok.",
                 sub_btn: "Abone Ol",
+                faq_sec_title: "Sıkça Sorulan Sorular",
+                faq_sec_desc: "Merak ettiğiniz konular hakkında hızlı yanıtlar alın.",
+                faq_q1: "Platform üzerindeki bilgiler ne kadar güvenilir?",
+                faq_a1: "Tüm içeriklerimiz bağımsız uzmanlar ve resmi bilimsel kaynaklar temel alınarak özenle derlenmekte ve güncellenmektedir.",
+                faq_q2: "Ürün içeriklerini nasıl arayabilirim?",
+                faq_a2: "Ana sayfada bulunan arama çubuğunu kullanarak ürün adını, barkodunu veya markasını anında aratabilirsiniz.",
+                faq_q3: "Uzman desteği almak ücretli mi?",
+                faq_a3: "Platformumuz üzerinden temel soru sorma ve rehberlere erişim tamamen ücretsizdir.",
                 b1_title: "Tarafsız Bilgi",
                 b1_desc: "Tüm içerikler bağımsız olarak hazırlanır ve düzenlenir.",
                 b2_title: "Güvenilir Kaynak",
                 b2_desc: "Bilgiler, bilimsel kaynaklar ve resmi verilerden derlenir.",
                 b3_title: "Gizlilik Koruması",
-                b3_desc: "Kişisel verileriniz güvenli bir şekilde korunur.",
+                b3_desc: "Kişisel verileriniz güvenli bir şekilde korunur ve saklanır.",
                 b4_title: "Kullanıcı Odaklı",
-                b4_desc: "İhtiyaçlarınıza uygun, anlaşılır ve hızlı erişim.",
-                footer_rights: "© 2026 Eshop Bilgi Platformu. Tüm hakları saklıdır.",
+                b4_desc: "İhtiyaçlarınıza uygun, anlaşılır ve hızlı erişim deneyimi.",
+                footer_about: "Sağlık ürünleri ve güvenilir rehberlik hizmetleri için geliştirilmiş yeni nesil dijital çözüm platformudur.",
+                footer_links_title: "Hızlı Bağlantılar",
+                footer_social_title: "Sosyal Medya",
                 f_about: "Hakkımızda",
                 f_terms: "Kullanım Koşulları",
                 f_privacy: "Gizlilik Politikası",
                 f_contact: "İletişim",
+                footer_rights: "© 2026 Eshop Bilgi Platformu v2. Tüm hakları saklıdır.",
                 m_home: "Ana Sayfa",
                 m_search: "Ara",
                 m_support: "Destek",
-                m_subscribe: "Abone Ol",
-                m_profile: "Profil"
+                m_subscribe: "Abone Ol"
             },
             en: {
+                top_notice: "🎉 Our next-gen health info platform v2 is live! Start exploring reliable content.",
+                top_help: "Help",
+                top_contact: "Contact",
                 nav_home: "Home",
                 nav_guide: "Info Guide",
+                nav_catalog: "Catalog",
                 nav_support: "Support",
                 nav_subscribe: "Subscribe",
-                hero_title: "Easy access to reliable info on <span>health products</span>",
-                hero_desc: "Quickly find product contents, usage details, and what you wonder about.",
+                menu_title: "Menu",
+                hero_badge: "Trusted Health Database",
+                hero_title: "<span>Easy access</span> to reliable information on health products",
+                hero_desc: "Quickly access product ingredients, usage details, side effects, and all details you wonder about. Faster and more comprehensive with v2.",
                 search_btn: "Search",
-                cat_dental: "Dental Care",
+                cat_dental: "Dental Health",
                 cat_hair: "Hair Care",
                 cat_health: "Health",
                 cat_medical: "Medical & Orthopedics",
                 cat_pharmacy: "For Pharmacy",
                 cat_special: "Special Categories",
                 cat_outlet: "Outlet",
-                card1_title: "Information Guide",
-                card1_desc: "Product contents, usage areas, and detailed information.",
+                feat_sec_title: "Our Services",
+                feat_sec_desc: "Get the information you need in the fastest and safest way.",
+                card1_title: "Info Guide",
+                card1_desc: "Product contents, usage areas, and detailed scientific data.",
                 card2_title: "Expert Support",
-                card2_desc: "Send questions to our expert team and get support.",
+                card2_desc: "Submit your questions to our expert team and get 24/7 support.",
                 card3_title: "My Favorites",
-                card3_desc: "Save important contents and access them easily.",
+                card3_desc: "Save important content and easily access it with a single click.",
                 card4_title: "Subscribe",
-                card4_desc: "Stay informed about updated contents and new guides.",
-                news_title: "Subscribe to stay informed about updated contents and new guides!",
+                card4_desc: "Stay informed about current content and newly added guides.",
+                inspect_text: "Inspect →",
+                ask_text: "Ask Question →",
+                view_text: "View →",
+                reg_text: "Register →",
+                cat_sec_title: "Popular Products & Reviews",
+                tab_all: "All",
+                tab_dental: "Dental",
+                tab_hair: "Hair",
+                tab_medical: "Medical",
+                badge_pop: "Popular",
+                badge_new: "New",
+                badge_cert: "Certified",
+                badge_feat: "Featured",
+                detail_btn: "Inspect",
+                news_title: "Subscribe to stay updated with current content and new guides!",
                 news_desc: "Only important info, no spam.",
                 sub_btn: "Subscribe",
-                b1_title: "Unbiased Info",
-                b1_desc: "All contents are prepared and edited independently.",
-                b2_title: "Reliable Source",
-                b2_desc: "Information compiled from scientific sources and official data.",
+                faq_sec_title: "Frequently Asked Questions",
+                faq_sec_desc: "Get quick answers about the topics you wonder.",
+                faq_q1: "How reliable is the information on the platform?",
+                faq_a1: "All our content is carefully compiled and updated based on independent experts and official scientific sources.",
+                faq_q2: "How can I search for product contents?",
+                faq_a2: "You can instantly search by product name, barcode, or brand using the search bar on the homepage.",
+                faq_q3: "Is it paid to get expert support?",
+                faq_a3: "Asking basic questions and accessing guides through our platform is completely free.",
+                b1_title: "Impartial Info",
+                b1_desc: "All content is prepared and curated independently.",
+                b2_title: "Trusted Source",
+                b2_desc: "Information is compiled from scientific sources and official data.",
                 b3_title: "Privacy Protection",
-                b3_desc: "Your personal data is securely protected.",
-                b4_title: "User Centric",
-                b4_desc: "Clear and fast access tailored to your needs.",
-                footer_rights: "© 2026 Eshop Info Platform. All rights reserved.",
+                b3_desc: "Your personal data is securely protected and stored.",
+                b4_title: "User Focused",
+                b4_desc: "An understandable and fast access experience tailored to your needs.",
+                footer_about: "A next-gen digital solution platform developed for health products and reliable guidance services.",
+                footer_links_title: "Quick Links",
+                footer_social_title: "Social Media",
                 f_about: "About Us",
                 f_terms: "Terms of Use",
                 f_privacy: "Privacy Policy",
                 f_contact: "Contact",
+                footer_rights: "© 2026 Eshop Info Platform v2. All rights reserved.",
                 m_home: "Home",
                 m_search: "Search",
                 m_support: "Support",
-                m_subscribe: "Subscribe",
-                m_profile: "Profile"
+                m_subscribe: "Subscribe"
             },
             ko: {
+                top_notice: "🎉 차세대 건강 정보 플랫폼 v2가 출시되었습니다! 신뢰할 수 있는 콘텐츠를 지금 만나보세요.",
+                top_help: "도움말",
+                top_contact: "문의하기",
                 nav_home: "홈",
                 nav_guide: "정보 가이드",
-                nav_support: "고객 지원",
-                nav_subscribe: "구독하기",
+                nav_catalog: "카탈로그",
+                nav_support: "지원",
+                nav_subscribe: "구독",
+                menu_title: "메뉴",
+                hero_badge: "신뢰할 수 있는 건강 데이터베이스",
                 hero_title: "건강 제품에 대한 신뢰할 수 있는 정보에 <span>쉽게 접근하세요</span>",
-                hero_desc: "제품 성분, 사용법 및 궁금한 점을 빠르게 찾아보세요.",
+                hero_desc: "제품 성분, 사용 세부 정보, 부작용 및 궁금한 모든 세부 정보를 빠르게 확인하세요. v2 버전으로 더욱 빠르고 포괄적입니다.",
                 search_btn: "검색",
                 cat_dental: "구강 및 치아 건강",
-                cat_hair: "헤어 케어",
+                cat_hair: "모발 관리",
                 cat_health: "건강",
                 cat_medical: "의료 및 정형외과",
-                cat_pharmacy: "약국 전용",
-                cat_special: "특수 카테고리",
+                cat_pharmacy: "약국용",
+                cat_special: "특별 카테고리",
                 cat_outlet: "아울렛",
+                feat_sec_title: "플랫폼 서비스",
+                feat_sec_desc: "가장 빠르고 안전한 방법으로 필요한 정보를 얻으세요.",
                 card1_title: "정보 가이드",
-                card1_desc: "제품 성분, 사용 분야 및 상세 정보.",
+                card1_desc: "제품 성분, 사용 분야 및 상세한 과학적 데이터.",
                 card2_title: "전문가 지원",
-                card2_desc: "전문가 팀에게 질문을 보내고 지원을 받으세요.",
-                card3_title: "내 즐겨찾기",
-                card3_desc: "중요한 콘텐츠를 저장하고 쉽게 접근하세요.",
+                card2_desc: "전문가 팀에 질문을 전달하고 24/7 지원을 받으세요.",
+                card3_title: "즐겨찾기",
+                card3_desc: "중요한 콘텐츠를 저장하고 한 번의 클릭으로 쉽게 액세스하세요.",
                 card4_title: "구독하기",
-                card4_desc: "최신 콘텐츠와 새로운 가이드 소식을 받아보세요.",
-                news_title: "구독하시고 최신 콘텐츠와 새로운 가이드 소식을 받아보세요!",
+                card4_desc: "최신 콘텐츠 및 새로 추가된 가이드에 대한 소식을 받아보세요.",
+                inspect_text: "자세히 보기 →",
+                ask_text: "질문하기 →",
+                view_text: "보기 →",
+                reg_text: "등록하기 →",
+                cat_sec_title: "인기 제품 및 리뷰",
+                tab_all: "전체",
+                tab_dental: "치아 건강",
+                tab_hair: "모발 관리",
+                tab_medical: "의료",
+                badge_pop: "인기",
+                badge_new: "신규",
+                badge_cert: "인증됨",
+                badge_feat: "추천",
+                detail_btn: "자세히 보기",
+                news_title: "최신 콘텐츠와 새로운 가이드 소식을 받아보려면 구독하세요!",
                 news_desc: "중요한 정보만 제공하며 스팸은 없습니다.",
-                sub_btn: "구독하기",
-                b1_title: "객관적인 정보",
-                b1_desc: "모든 콘텐츠는 독립적으로 준비되고 편집됩니다.",
+                sub_btn: "구독",
+                faq_sec_title: "자주 묻는 질문",
+                faq_sec_desc: "궁금한 사항에 대한 빠른 답변을 확인하세요.",
+                faq_q1: "플랫폼의 정보는 얼마나 신뢰할 수 있나요?",
+                faq_a1: "모든 콘텐츠는 독립적인 전문가와 공식 과학적 출처를 바탕으로 신중하게 편집 및 업데이트됩니다.",
+                faq_q2: "제품 성분을 어떻게 검색할 수 있나요?",
+                faq_a2: "홈페이지의 검색창을 사용하여 제품명, 바코드 또는 브랜드를 즉시 검색할 수 있습니다.",
+                faq_q3: "전문가 지원을 받는 것은 유료인가요?",
+                faq_a3: "플랫폼을 통한 기본적인 질문 및 가이드 액세스는 완전히 무료입니다.",
+                b1_title: "중립적 정보",
+                b1_desc: "모든 콘텐츠는 독립적으로 준비되고 큐레이션됩니다.",
                 b2_title: "신뢰할 수 있는 출처",
-                b2_desc: "과학적 출처와 공식 데이터를 기반으로 한 정보.",
+                b2_desc: "정보는 과학적 출처와 공식 데이터에서 수집됩니다.",
                 b3_title: "개인정보 보호",
-                b3_desc: "귀하의 개인 데이터는 안전하게 보호됩니다.",
+                b3_desc: "귀하의 개인 데이터는 안전하게 보호되고 저장됩니다.",
                 b4_title: "사용자 중심",
-                b4_desc: "필요에 맞춘 명확하고 빠른 접근성.",
-                footer_rights: "© 2026 Eshop 정보 플랫폼. 모든 권리 보유.",
+                b4_desc: "귀하의 요구에 맞춘 이해하기 쉽고 빠른 액세스 경험.",
+                footer_about: "건강 제품 및 신뢰할 수 있는 안내 서비스를 위해 개발된 차세대 디지털 솔루션 플랫폼입니다.",
+                footer_links_title: "빠른 링크",
+                footer_social_title: "소셜 미디어",
                 f_about: "회사 소개",
                 f_terms: "이용 약관",
                 f_privacy: "개인정보 처리방침",
                 f_contact: "연락처",
+                footer_rights: "© 2026 Eshop 정보 플랫폼 v2. All rights reserved.",
                 m_home: "홈",
                 m_search: "검색",
                 m_support: "지원",
-                m_subscribe: "구독",
-                m_profile: "프로필"
+                m_subscribe: "구독"
             }
         };
 
-        function changeLanguage() {
-            const lang = document.getElementById("language-selector").value;
-            const elements = document.querySelectorAll("[data-lang]");
-
-            elements.forEach((el) => {
-                const key = el.getAttribute("data-lang");
+        function switchLanguage(lang) {
+            const elements = document.querySelectorAll('[data-lang]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-lang');
                 if (translations[lang] && translations[lang][key]) {
-                    el.innerHTML = translations[lang][key];
+                    if(translations[lang][key].includes('<span>')) {
+                        el.innerHTML = translations[lang][key];
+                    } else {
+                        el.textContent = translations[lang][key];
+                    }
                 }
             });
+            localStorage.setItem('preferred_lang', lang);
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Sidebar Toggle
+            const toggleBtn = document.getElementById('mobileMenuToggle');
+            const sidebar = document.getElementById('mobileSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const closeBtn = document.getElementById('sidebarClose');
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('open');
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('open');
+            }
+
+            if(toggleBtn) toggleBtn.addEventListener('click', openSidebar);
+            if(closeBtn) closeBtn.addEventListener('click', closeSidebar);
+            if(overlay) overlay.addEventListener('click', closeSidebar);
+
+            // FAQ Accordion
+            const faqBtns = document.querySelectorAll('.faq-question-btn');
+            faqBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const item = btn.parentElement;
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Catalog Filtering
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            const catalogCards = document.querySelectorAll('.catalog-card');
+
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    const filter = tab.getAttribute('data-filter');
+                    catalogCards.forEach(card => {
+                        const category = card.getAttribute('data-category');
+                        if (filter === 'all' || category === filter) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Load saved language if available
+            const savedLang = localStorage.getItem('preferred_lang');
+            if(savedLang && translations[savedLang]) {
+                document.getElementById('language-selector').value = savedLang;
+                switchLanguage(savedLang);
+            }
+        });
     </script>
 </body>
-
 </html>
