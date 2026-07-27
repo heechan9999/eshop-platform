@@ -13,15 +13,18 @@
 
     <style>
         :root {
-            --primary: #d32f2f;
-            --primary-dark: #b71c1c;
+            --primary: #ed1c24;
+            --primary-dark: #c81016;
             --secondary: #0a192f;
-            --text: #333333;
-            --text-light: #666666;
-            --bg-color: #f8f9fa;
+            --text: #2d3748;
+            --text-light: #718096;
+            --bg-color: #f7fafc;
             --white: #ffffff;
-            --border: #eaedf1;
-            --transition: all 0.3s ease;
+            --border: #e2e8f0;
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.02);
+            --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
@@ -49,13 +52,14 @@
             padding: 0 20px;
         }
 
-        /* Header */
+        /* Header Styles */
         header {
             background: var(--white);
             position: sticky;
             top: 0;
             z-index: 100;
             box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+            border-bottom: 1px solid var(--border);
         }
 
         .nav {
@@ -65,7 +69,6 @@
             height: 90px;
         }
 
-        /* 로고 크기 대폭 확대 및 정돈 */
         .logo {
             display: flex;
             align-items: center;
@@ -101,6 +104,7 @@
             background: var(--white);
             cursor: pointer;
             font-weight: 600;
+            color: var(--text);
         }
 
         .menu-btn {
@@ -111,241 +115,277 @@
             cursor: pointer;
         }
 
-        /* Hero Section (배경을 자연스럽고 고급스럽게 녹여낸 레이아웃) */
+        /* Hero Section (레퍼런스 1번: 배경 이미지 자연 블렌딩 및 웅장한 레이아웃) */
         .hero {
             position: relative;
-            padding: 60px 0 80px 0;
-            background-color: var(--bg-color);
+            padding: 70px 0 90px 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             overflow: hidden;
         }
 
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.85) 60%, rgba(255,255,255,0.6) 100%);
+            z-index: 1;
+        }
+
         .hero-container {
+            position: relative;
+            z-index: 2;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 40px;
+            flex-direction: column;
+            max-width: 850px;
+            margin: 0 auto;
+            text-align: left;
         }
 
-        .hero-text-content {
-            flex: 1.1;
-            max-width: 620px;
-        }
-
-        /* 우측 배경 이미지를 뚝 끊기지 않고 자연스러운 일러스트 카드 형태로 안착 */
-        .hero-visual-card {
-            flex: 0.9;
-            background: var(--white);
-            border-radius: 24px;
-            padding: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero-visual-card img {
-            width: 100%;
-            height: auto;
-            max-height: 380px;
-            object-fit: cover;
-            border-radius: 16px;
-        }
-
-        .hero h1 {
-            font-size: 42px;
+        .hero-text-content h1 {
+            font-size: 46px;
             line-height: 1.25;
             margin-bottom: 20px;
             color: var(--secondary);
             font-weight: 800;
         }
 
-        .hero h1 span {
+        .hero-text-content h1 span {
             color: var(--primary);
         }
 
-        .hero p {
-            font-size: 17px;
+        .hero-text-content p {
+            font-size: 18px;
             color: var(--text-light);
             margin-bottom: 30px;
         }
 
-        /* Search Box */
+        /* Search Box Styles */
         .search-box {
             width: 100%;
             display: flex;
             background: var(--white);
             border-radius: 50px;
-            padding: 6px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            padding: 8px;
+            box-shadow: var(--shadow-lg);
             border: 1px solid var(--border);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            transition: var(--transition);
+        }
+
+        .search-box:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(237, 28, 36, 0.1);
         }
 
         .search-box input {
             flex: 1;
-            padding: 12px 20px;
+            padding: 14px 24px;
             border: none;
             border-radius: 50px;
-            font-size: 15px;
+            font-size: 16px;
             outline: none;
+            background: transparent;
+            color: var(--text);
         }
 
         .search-box button {
-            background-color: var(--secondary);
+            background-color: var(--primary);
             color: var(--white);
             border: none;
             border-radius: 50px;
-            padding: 0 32px;
-            font-size: 15px;
+            padding: 0 36px;
+            font-size: 16px;
             font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-box button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* 레퍼런스 3번: 검색창 아래 원형 카테고리 이미지 바벨 */
+        .category-circles-wrapper {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 10px 5px;
+            width: 100%;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .category-circles-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-circle-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-align: center;
+            flex-shrink: 0;
+            width: 90px;
             cursor: pointer;
             transition: var(--transition);
         }
 
-        .search-box button:hover {
-            background-color: #051020;
-        }
-
-        /* Popular Searches Tags (드래그/스와이프 가능 + 대화 내용 반영 목록) */
-        .popular-searches-wrapper {
+        .circle-img-box {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: var(--white);
+            border: 2px solid var(--border);
+            box-shadow: var(--shadow-sm);
             display: flex;
             align-items: center;
-            gap: 12px;
-            width: 100%;
-        }
-
-        .pop-label {
-            font-size: 13px;
-            color: var(--text-light);
-            font-weight: 500;
-            white-space: nowrap;
-        }
-
-        .popular-tags {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            white-space: nowrap;
-            cursor: grab;
-            user-select: none;
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: 5px;
-        }
-
-        .popular-tags::-webkit-scrollbar { display: none; }
-        .popular-tags { -ms-overflow-style: none; scrollbar-width: none; }
-        .popular-tags:active { cursor: grabbing; }
-
-        .tag-item {
-            background: var(--white);
-            border: 1px solid var(--border);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text);
+            justify-content: center;
             transition: var(--transition);
-            flex-shrink: 0;
         }
 
-        .tag-item:hover {
+        .circle-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .category-circle-item:hover .circle-img-box {
             border-color: var(--primary);
-            color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
         }
 
-        /* Features Grid */
+        .category-circle-item:hover span {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .category-circle-item span {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .circle-img-box.red-bg {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .circle-img-box.red-bg img {
+            padding: 8px;
+        }
+
+        /* Features Section */
         .features {
-            padding: 30px 0 50px 0;
+            padding: 50px 0;
         }
 
         .features-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
+            gap: 24px;
         }
 
         .feature-card {
             background: var(--white);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 30px 20px;
+            border-radius: 20px;
+            padding: 30px 24px;
             transition: var(--transition);
             display: flex;
             flex-direction: column;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            box-shadow: var(--shadow-sm);
         }
 
         .feature-card:hover {
             border-color: var(--primary);
-            box-shadow: 0 10px 30px rgba(211, 47, 47, 0.08);
-            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-6px);
         }
 
         .feature-icon {
-            font-size: 32px;
-            margin-bottom: 15px;
-            background: var(--bg-color);
-            width: 60px;
-            height: 60px;
+            font-size: 28px;
+            margin-bottom: 18px;
+            background: #fff5f5;
+            color: var(--primary);
+            width: 56px;
+            height: 56px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
+            border-radius: 16px;
         }
 
         .feature-card h3 {
-            font-size: 17px;
+            font-size: 18px;
             margin-bottom: 8px;
             color: var(--secondary);
+            font-weight: 700;
         }
 
         .feature-card p {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-light);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .feature-arrow {
             margin-top: auto;
-            color: var(--text);
+            color: var(--text-light);
             font-weight: bold;
+            transition: var(--transition);
         }
-        .feature-card:hover .feature-arrow { color: var(--primary); }
 
-        /* Newsletter */
-        .newsletter { padding: 30px 0; }
+        .feature-card:hover .feature-arrow {
+            color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        /* Newsletter Section */
+        .newsletter { padding: 30px 0 50px 0; }
         .newsletter-box {
             background: var(--secondary);
             color: var(--white);
-            border-radius: 20px;
-            padding: 40px;
+            border-radius: 24px;
+            padding: 45px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 25px;
+            box-shadow: var(--shadow-md);
         }
-        .newsletter-content { display: flex; align-items: center; gap: 20px; flex: 1; }
-        .newsletter-icon { font-size: 40px; }
-        .newsletter-text h3 { font-size: 20px; margin-bottom: 5px; }
+
+        .newsletter-content { display: flex; align-items: center; gap: 24px; flex: 1; }
+        .newsletter-icon { font-size: 42px; background: rgba(255,255,255,0.1); width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; border-radius: 20px; }
+        .newsletter-text h3 { font-size: 20px; margin-bottom: 6px; font-weight: 700; }
         .newsletter-text p { color: #a0aec0; font-size: 14px; }
-        .newsletter-form { display: flex; gap: 10px; width: 100%; max-width: 400px; }
-        .newsletter-form input { flex: 1; padding: 14px 18px; border-radius: 10px; border: none; outline: none; }
-        .newsletter-form button { padding: 14px 24px; background: var(--primary); color: var(--white); border: none; border-radius: 10px; font-weight: 700; cursor: pointer; }
+        .newsletter-form { display: flex; gap: 12px; width: 100%; max-width: 420px; }
+        .newsletter-form input { flex: 1; padding: 14px 20px; border-radius: 12px; border: none; outline: none; font-size: 14px; }
+        .newsletter-form button { padding: 14px 26px; background: var(--primary); color: var(--white); border: none; border-radius: 12px; font-weight: 700; cursor: pointer; transition: var(--transition); }
         .newsletter-form button:hover { background: var(--primary-dark); }
 
         /* Trust Features */
-        .trust-features { padding: 50px 0; background: var(--white); }
-        .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
-        .trust-icon { font-size: 32px; margin-bottom: 12px; }
-        .trust-item h4 { color: var(--secondary); margin-bottom: 6px; font-size: 16px; }
+        .trust-features { padding: 60px 0; background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center; }
+        .trust-icon { font-size: 36px; margin-bottom: 15px; }
+        .trust-item h4 { color: var(--secondary); margin-bottom: 8px; font-size: 17px; font-weight: 700; }
         .trust-item p { font-size: 13px; color: var(--text-light); }
 
         /* Footer */
-        footer { padding: 30px 0; background: var(--bg-color); }
+        footer { padding: 35px 0; background: var(--bg-color); }
         .footer-flex { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-light); }
-        .footer-links { display: flex; gap: 20px; }
+        .footer-links { display: flex; gap: 25px; }
+        .footer-links a:hover { color: var(--primary); }
 
         /* Mobile Bottom Navigation */
         .mobile-bottom-nav {
@@ -357,18 +397,15 @@
             justify-content: space-around;
             padding: 10px 0 12px 0;
             z-index: 1000;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.05);
         }
         .mobile-nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 10px; color: var(--text-light); font-weight: 600; }
         .mobile-nav-item.active { color: var(--primary); }
         .mobile-nav-item .icon { font-size: 18px; }
 
-        /* Responsive */
+        /* Responsive Queries */
         @media (max-width: 968px) {
-            .hero-container { flex-direction: column; }
-            .hero-visual-card { width: 100%; }
-            .hero-text-content { max-width: 100%; text-align: center; }
-            .hero h1 { font-size: 30px; }
-            .popular-searches-wrapper { flex-direction: column; align-items: flex-start; }
+            .hero-text-content h1 { font-size: 32px; }
             .features-grid { grid-template-columns: 1fr 1fr; }
             .trust-grid { grid-template-columns: 1fr 1fr; }
             nav ul { display: none; }
@@ -376,7 +413,7 @@
             .newsletter-box { flex-direction: column; text-align: center; }
             .newsletter-content { flex-direction: column; }
             .newsletter-form { max-width: 100%; }
-            .footer-flex { flex-direction: column; text-align: center; gap: 10px; }
+            .footer-flex { flex-direction: column; text-align: center; gap: 12px; }
             .mobile-bottom-nav { display: flex; }
             body { padding-bottom: 80px; }
         }
@@ -412,7 +449,7 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" style="background-image: url('images/뒷 배경.png');">
         <div class="container hero-container">
             <div class="hero-text-content">
                 <h1 data-lang="hero_title">
@@ -422,30 +459,46 @@
                     Ürün içerikleri, kullanım detayları ve merak ettiklerinize hızlıca ulaşın.
                 </p>
 
-                <!-- 검색창 -->
+                <!-- Search Box -->
                 <div class="search-box">
-                    <input type="text" placeholder="Ürün adı, içerik, kategori veya konu ara...">
-                    <button class="search-btn" data-lang="search_btn">Ara</button>
+                    <input type="text" placeholder="Ürün adı, barkod, marka veya kullanıcı adı ara...">
+                    <button class="search-btn" data-lang="search_btn">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <span>Ara</span>
+                    </button>
                 </div>
 
-                <!-- 🔥 인기 검색어 / 카테고리 태그 (실제 준비된 파일 및 이전 논의사항 반영) -->
-                <div class="popular-searches-wrapper">
-                    <span class="pop-label" data-lang="pop_label">Popüler aramalar:</span>
-                    <div class="popular-tags" id="popularSearches">
-                        <a href="#vitamin" class="tag-item">C Vitamini</a>
-                        <a href="#omega" class="tag-item">Omega 3</a>
-                        <a href="#supplement" class="tag-item">Gıda Takviyesi</a>
-                        <a href="#mom-baby" class="tag-item">Anne & Bebek</a>
-                        <a href="#skincare" class="tag-item">Cilt Bakımı</a>
-                        <a href="#painrelief" class="tag-item">Ağrı Kesici</a>
-                        <a href="#firstaid" class="tag-item">İlk Yardım</a>
-                    </div>
+                <!-- Circular Category Images (Ref 3) -->
+                <div class="category-circles-wrapper">
+                    <a href="#agiz" class="category-circle-item">
+                        <div class="circle-img-box"><img src="images/agiz.png" alt="Ağız ve Diş Sağlığı"></div>
+                        <span data-lang="cat_dental">Ağız ve Diş Sağlığı</span>
+                    </a>
+                    <a href="#sac" class="category-circle-item">
+                        <div class="circle-img-box"><img src="images/sac.png" alt="Saç Bakımı"></div>
+                        <span data-lang="cat_hair">Saç Bakımı</span>
+                    </a>
+                    <a href="#saglik" class="category-circle-item">
+                        <div class="circle-img-box"><img src="images/saglik.png" alt="Sağlık"></div>
+                        <span data-lang="cat_health">Sağlık</span>
+                    </a>
+                    <a href="#medikal" class="category-circle-item">
+                        <div class="circle-img-box"><img src="images/medikal.png" alt="Medikal & Ortopedi"></div>
+                        <span data-lang="cat_medical">Medikal & Ortopedi</span>
+                    </a>
+                    <a href="#eczane" class="category-circle-item">
+                        <div class="circle-img-box"><img src="images/eczane.png" alt="Eczaneniz İçin"></div>
+                        <span data-lang="cat_pharmacy">Eczaneniz İçin</span>
+                    </a>
+                    <a href="#ozel" class="category-circle-item">
+                        <div class="circle-img-box"><img src="images/ozel.png" alt="Özel Kategoriler"></div>
+                        <span data-lang="cat_special">Özel Kategoriler</span>
+                    </a>
+                    <a href="#outlet" class="category-circle-item">
+                        <div class="circle-img-box red-bg"><img src="images/outlet.png" alt="Outlet"></div>
+                        <span data-lang="cat_outlet">Outlet</span>
+                    </a>
                 </div>
-            </div>
-
-            <!-- 우측 백그라운드 이미지를 자연스러운 카드 일러스트로 블렌딩 -->
-            <div class="hero-visual-card">
-                <img src="images/뒷 배경.png" alt="EShop Platform Visual">
             </div>
         </div>
     </section>
@@ -474,7 +527,7 @@
             <a href="#" class="feature-card">
                 <div class="feature-icon">✉️</div>
                 <h3 data-lang="card4_title">Abone Ol</h3>
-                <p data-lang="card4_desc">Güncel içeriklerden ve yeni buluşlardan haberdار olun.</p>
+                <p data-lang="card4_desc">Güncel içeriklerden ve yeni buluşlardan haberdar olun.</p>
                 <span class="feature-arrow">→</span>
             </a>
         </div>
@@ -573,7 +626,13 @@
                 hero_title: "Sağlık ürünleri hakkında güvenilir bilgiye <span>kolay erişim</span>",
                 hero_desc: "Ürün içerikleri, kullanım detayları ve merak ettiklerinize hızlıca ulaşın.",
                 search_btn: "Ara",
-                pop_label: "Popüler aramalar:",
+                cat_dental: "Ağız ve Diş Sağlığı",
+                cat_hair: "Saç Bakımı",
+                cat_health: "Sağlık",
+                cat_medical: "Medikal & Ortopedi",
+                cat_pharmacy: "Eczaneniz İçin",
+                cat_special: "Özel Kategoriler",
+                cat_outlet: "Outlet",
                 card1_title: "Bilgi Rehberi",
                 card1_desc: "Ürün içerikleri, kullanım alanları ve detaylı bilgiler.",
                 card2_title: "Uzman Desteği",
@@ -612,7 +671,13 @@
                 hero_title: "Easy access to reliable info on <span>health products</span>",
                 hero_desc: "Quickly find product contents, usage details, and what you wonder about.",
                 search_btn: "Search",
-                pop_label: "Popular searches:",
+                cat_dental: "Dental Care",
+                cat_hair: "Hair Care",
+                cat_health: "Health",
+                cat_medical: "Medical & Orthopedics",
+                cat_pharmacy: "For Pharmacy",
+                cat_special: "Special Categories",
+                cat_outlet: "Outlet",
                 card1_title: "Information Guide",
                 card1_desc: "Product contents, usage areas, and detailed information.",
                 card2_title: "Expert Support",
@@ -651,7 +716,13 @@
                 hero_title: "건강 제품에 대한 신뢰할 수 있는 정보에 <span>쉽게 접근하세요</span>",
                 hero_desc: "제품 성분, 사용법 및 궁금한 점을 빠르게 찾아보세요.",
                 search_btn: "검색",
-                pop_label: "인기 검색어:",
+                cat_dental: "구강 및 치아 건강",
+                cat_hair: "헤어 케어",
+                cat_health: "건강",
+                cat_medical: "의료 및 정형외과",
+                cat_pharmacy: "약국 전용",
+                cat_special: "특수 카테고리",
+                cat_outlet: "아울렛",
                 card1_title: "정보 가이드",
                 card1_desc: "제품 성분, 사용 분야 및 상세 정보.",
                 card2_title: "전문가 지원",
@@ -695,55 +766,6 @@
                 }
             });
         }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const slider = document.getElementById('popularSearches');
-            let isDown = false;
-            let isDragging = false;
-            let startX;
-            let scrollLeft;
-
-            if (slider) {
-                slider.addEventListener('mousedown', (e) => {
-                    isDown = true;
-                    isDragging = false;
-                    slider.style.cursor = 'grabbing';
-                    startX = e.pageX - slider.offsetLeft;
-                    scrollLeft = slider.scrollLeft;
-                });
-
-                slider.addEventListener('mouseleave', () => {
-                    isDown = false;
-                    slider.style.cursor = 'grab';
-                });
-
-                slider.addEventListener('mouseup', () => {
-                    isDown = false;
-                    slider.style.cursor = 'grab';
-                    setTimeout(() => {
-                        isDragging = false;
-                    }, 50);
-                });
-
-                slider.addEventListener('mousemove', (e) => {
-                    if (!isDown) return;
-                    isDragging = true;
-                    e.preventDefault();
-                    const x = e.pageX - slider.offsetLeft;
-                    const walk = (x - startX) * 1.5;
-                    slider.scrollLeft = scrollLeft - walk;
-                });
-
-                const tags = slider.querySelectorAll('a');
-                tags.forEach(tag => {
-                    tag.addEventListener('click', (e) => {
-                        if (isDragging) {
-                            e.preventDefault();
-                        }
-                    });
-                });
-            }
-        });
     </script>
 </body>
 

@@ -7,7 +7,13 @@ const translations = {
         hero_title: "Sağlık ürünleri hakkında güvenilir bilgiye <span>kolay erişim</span>",
         hero_desc: "Ürün içerikleri, kullanım detayları ve merak ettiklerinize hızlıca ulaşın.",
         search_btn: "Ara",
-        pop_label: "Popüler aramalar:",
+        cat_dental: "Ağız ve Diş Sağlığı",
+        cat_hair: "Saç Bakımı",
+        cat_health: "Sağlık",
+        cat_medical: "Medikal & Ortopedi",
+        cat_pharmacy: "Eczaneniz İçin",
+        cat_special: "Özel Kategoriler",
+        cat_outlet: "Outlet",
         card1_title: "Bilgi Rehberi",
         card1_desc: "Ürün içerikleri, kullanım alanları ve detaylı bilgiler.",
         card2_title: "Uzman Desteği",
@@ -46,7 +52,13 @@ const translations = {
         hero_title: "Easy access to reliable info on <span>health products</span>",
         hero_desc: "Quickly find product contents, usage details, and what you wonder about.",
         search_btn: "Search",
-        pop_label: "Popular searches:",
+        cat_dental: "Dental Care",
+        cat_hair: "Hair Care",
+        cat_health: "Health",
+        cat_medical: "Medical & Orthopedics",
+        cat_pharmacy: "For Pharmacy",
+        cat_special: "Special Categories",
+        cat_outlet: "Outlet",
         card1_title: "Information Guide",
         card1_desc: "Product contents, usage areas, and detailed information.",
         card2_title: "Expert Support",
@@ -85,7 +97,13 @@ const translations = {
         hero_title: "건강 제품에 대한 신뢰할 수 있는 정보에 <span>쉽게 접근하세요</span>",
         hero_desc: "제품 성분, 사용법 및 궁금한 점을 빠르게 찾아보세요.",
         search_btn: "검색",
-        pop_label: "인기 검색어:",
+        cat_dental: "구강 및 치아 건강",
+        cat_hair: "헤어 케어",
+        cat_health: "건강",
+        cat_medical: "의료 및 정형외과",
+        cat_pharmacy: "약국 전용",
+        cat_special: "특수 카테고리",
+        cat_outlet: "아울렛",
         card1_title: "정보 가이드",
         card1_desc: "제품 성분, 사용 분야 및 상세 정보.",
         card2_title: "전문가 지원",
@@ -131,16 +149,14 @@ function changeLanguage() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const slider = document.getElementById('popularSearches');
+    const slider = document.querySelector('.category-circles-wrapper');
     let isDown = false;
-    let isDragging = false;
     let startX;
     let scrollLeft;
 
     if (slider) {
         slider.addEventListener('mousedown', (e) => {
             isDown = true;
-            isDragging = false;
             slider.style.cursor = 'grabbing';
             startX = e.pageX - slider.offsetLeft;
             scrollLeft = slider.scrollLeft;
@@ -148,33 +164,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         slider.addEventListener('mouseleave', () => {
             isDown = false;
-            slider.style.cursor = 'grab';
+            slider.style.cursor = 'default';
         });
 
         slider.addEventListener('mouseup', () => {
             isDown = false;
-            slider.style.cursor = 'grab';
-            setTimeout(() => {
-                isDragging = false;
-            }, 50);
+            slider.style.cursor = 'default';
         });
 
         slider.addEventListener('mousemove', (e) => {
             if (!isDown) return;
-            isDragging = true;
             e.preventDefault();
             const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 1.5;
+            const walk = (x - startX) * 2;
             slider.scrollLeft = scrollLeft - walk;
-        });
-
-        const tags = slider.querySelectorAll('a');
-        tags.forEach(tag => {
-            tag.addEventListener('click', (e) => {
-                if (isDragging) {
-                    e.preventDefault();
-                }
-            });
         });
     }
 });
