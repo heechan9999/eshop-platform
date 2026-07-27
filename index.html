@@ -6,14 +6,381 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EShop Bilgi Platformu</title>
     
-    <!-- CSS & JS -->
-    <link rel="stylesheet" href="css/style.css">
-    <script defer src="js/script.js"></script>
-
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #d32f2f;
+            --primary-dark: #b71c1c;
+            --secondary: #0a192f;
+            --text: #333333;
+            --text-light: #666666;
+            --bg-color: #f8f9fa;
+            --white: #ffffff;
+            --border: #eaedf1;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 70px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 90px;
+        }
+
+        /* 로고 크기 대폭 확대 및 정돈 */
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 52px;
+            max-width: 220px;
+            object-fit: contain;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        nav ul a {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        nav ul a:hover {
+            color: var(--primary);
+        }
+
+        .lang-btn {
+            padding: 8px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--white);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .menu-btn {
+            display: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Hero Section (배경을 자연스럽고 고급스럽게 녹여낸 레이아웃) */
+        .hero {
+            position: relative;
+            padding: 60px 0 80px 0;
+            background-color: var(--bg-color);
+            overflow: hidden;
+        }
+
+        .hero-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .hero-text-content {
+            flex: 1.1;
+            max-width: 620px;
+        }
+
+        /* 우측 배경 이미지를 뚝 끊기지 않고 자연스러운 일러스트 카드 형태로 안착 */
+        .hero-visual-card {
+            flex: 0.9;
+            background: var(--white);
+            border-radius: 24px;
+            padding: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-visual-card img {
+            width: 100%;
+            height: auto;
+            max-height: 380px;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            line-height: 1.25;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            font-weight: 800;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 17px;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        /* Search Box */
+        .search-box {
+            width: 100%;
+            display: flex;
+            background: var(--white);
+            border-radius: 50px;
+            padding: 6px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .search-box button {
+            background-color: var(--secondary);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            padding: 0 32px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-box button:hover {
+            background-color: #051020;
+        }
+
+        /* Popular Searches Tags (드래그/스와이프 가능 + 대화 내용 반영 목록) */
+        .popular-searches-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .pop-label {
+            font-size: 13px;
+            color: var(--text-light);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .popular-tags {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+            cursor: grab;
+            user-select: none;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 5px;
+        }
+
+        .popular-tags::-webkit-scrollbar { display: none; }
+        .popular-tags { -ms-overflow-style: none; scrollbar-width: none; }
+        .popular-tags:active { cursor: grabbing; }
+
+        .tag-item {
+            background: var(--white);
+            border: 1px solid var(--border);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .tag-item:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Features Grid */
+        .features {
+            padding: 30px 0 50px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px 20px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(211, 47, 47, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+            background: var(--bg-color);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .feature-card h3 {
+            font-size: 17px;
+            margin-bottom: 8px;
+            color: var(--secondary);
+        }
+
+        .feature-card p {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .feature-arrow {
+            margin-top: auto;
+            color: var(--text);
+            font-weight: bold;
+        }
+        .feature-card:hover .feature-arrow { color: var(--primary); }
+
+        /* Newsletter */
+        .newsletter { padding: 30px 0; }
+        .newsletter-box {
+            background: var(--secondary);
+            color: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .newsletter-content { display: flex; align-items: center; gap: 20px; flex: 1; }
+        .newsletter-icon { font-size: 40px; }
+        .newsletter-text h3 { font-size: 20px; margin-bottom: 5px; }
+        .newsletter-text p { color: #a0aec0; font-size: 14px; }
+        .newsletter-form { display: flex; gap: 10px; width: 100%; max-width: 400px; }
+        .newsletter-form input { flex: 1; padding: 14px 18px; border-radius: 10px; border: none; outline: none; }
+        .newsletter-form button { padding: 14px 24px; background: var(--primary); color: var(--white); border: none; border-radius: 10px; font-weight: 700; cursor: pointer; }
+        .newsletter-form button:hover { background: var(--primary-dark); }
+
+        /* Trust Features */
+        .trust-features { padding: 50px 0; background: var(--white); }
+        .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+        .trust-icon { font-size: 32px; margin-bottom: 12px; }
+        .trust-item h4 { color: var(--secondary); margin-bottom: 6px; font-size: 16px; }
+        .trust-item p { font-size: 13px; color: var(--text-light); }
+
+        /* Footer */
+        footer { padding: 30px 0; background: var(--bg-color); }
+        .footer-flex { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-light); }
+        .footer-links { display: flex; gap: 20px; }
+
+        /* Mobile Bottom Navigation */
+        .mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0; left: 0; width: 100%;
+            background: var(--white);
+            border-top: 1px solid var(--border);
+            justify-content: space-around;
+            padding: 10px 0 12px 0;
+            z-index: 1000;
+        }
+        .mobile-nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 10px; color: var(--text-light); font-weight: 600; }
+        .mobile-nav-item.active { color: var(--primary); }
+        .mobile-nav-item .icon { font-size: 18px; }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-container { flex-direction: column; }
+            .hero-visual-card { width: 100%; }
+            .hero-text-content { max-width: 100%; text-align: center; }
+            .hero h1 { font-size: 30px; }
+            .popular-searches-wrapper { flex-direction: column; align-items: flex-start; }
+            .features-grid { grid-template-columns: 1fr 1fr; }
+            .trust-grid { grid-template-columns: 1fr 1fr; }
+            nav ul { display: none; }
+            .menu-btn { display: block; }
+            .newsletter-box { flex-direction: column; text-align: center; }
+            .newsletter-content { flex-direction: column; }
+            .newsletter-form { max-width: 100%; }
+            .footer-flex { flex-direction: column; text-align: center; gap: 10px; }
+            .mobile-bottom-nav { display: flex; }
+            body { padding-bottom: 80px; }
+        }
+    </style>
 </head>
 
 <body>
@@ -44,7 +411,7 @@
         </div>
     </header>
 
-    <!-- Hero Section (세 번째 짤 분위기: 우측 배경 이미지 적용) -->
+    <!-- Hero Section -->
     <section class="hero">
         <div class="container hero-container">
             <div class="hero-text-content">
@@ -61,26 +428,29 @@
                     <button class="search-btn" data-lang="search_btn">Ara</button>
                 </div>
 
-                <!-- 🔥 검색창 밑 인기 검색어 목록 (드래그/스와이프 가능 + 링크 연결) -->
+                <!-- 🔥 인기 검색어 / 카테고리 태그 (실제 준비된 파일 및 이전 논의사항 반영) -->
                 <div class="popular-searches-wrapper">
                     <span class="pop-label" data-lang="pop_label">Popüler aramalar:</span>
                     <div class="popular-tags" id="popularSearches">
                         <a href="#vitamin" class="tag-item">C Vitamini</a>
                         <a href="#omega" class="tag-item">Omega 3</a>
-                        <a href="#probiyotik" class="tag-item">Probiyotik</a>
-                        <a href="#multivitamin" class="tag-item">Multivitamin</a>
-                        <a href="#magnezyum" class="tag-item">Magnezyum</a>
-                        <a href="#zinc" class="tag-item">Çinko</a>
-                        <a href="#kolajen" class="tag-item">Kolajen</a>
+                        <a href="#supplement" class="tag-item">Gıda Takviyesi</a>
+                        <a href="#mom-baby" class="tag-item">Anne & Bebek</a>
+                        <a href="#skincare" class="tag-item">Cilt Bakımı</a>
+                        <a href="#painrelief" class="tag-item">Ağrı Kesici</a>
+                        <a href="#firstaid" class="tag-item">İlk Yardım</a>
                     </div>
                 </div>
             </div>
-            <!-- 우측은 CSS 백그라운드 이미지(뒷 배경.png) 영역 -->
-            <div class="hero-visual-placeholder"></div>
+
+            <!-- 우측 백그라운드 이미지를 자연스러운 카드 일러스트로 블렌딩 -->
+            <div class="hero-visual-card">
+                <img src="images/뒷 배경.png" alt="EShop Platform Visual">
+            </div>
         </div>
     </section>
 
-    <!-- Features / 안내 카드 -->
+    <!-- Features -->
     <section class="features">
         <div class="container features-grid">
             <a href="#" class="feature-card">
@@ -104,13 +474,13 @@
             <a href="#" class="feature-card">
                 <div class="feature-icon">✉️</div>
                 <h3 data-lang="card4_title">Abone Ol</h3>
-                <p data-lang="card4_desc">Güncel içeriklerden ve yeni buluşlardan haberdar olun.</p>
+                <p data-lang="card4_desc">Güncel içeriklerden ve yeni buluşlardan haberdار olun.</p>
                 <span class="feature-arrow">→</span>
             </a>
         </div>
     </section>
 
-    <!-- Newsletter Section -->
+    <!-- Newsletter -->
     <section class="newsletter">
         <div class="container">
             <div class="newsletter-box">
@@ -192,5 +562,189 @@
         </a>
     </div>
 
+    <!-- JavaScript -->
+    <script>
+        const translations = {
+            tr: {
+                nav_home: "Ana Sayfa",
+                nav_guide: "Bilgi Rehberi",
+                nav_support: "Destek",
+                nav_subscribe: "Abone Ol",
+                hero_title: "Sağlık ürünleri hakkında güvenilir bilgiye <span>kolay erişim</span>",
+                hero_desc: "Ürün içerikleri, kullanım detayları ve merak ettiklerinize hızlıca ulaşın.",
+                search_btn: "Ara",
+                pop_label: "Popüler aramalar:",
+                card1_title: "Bilgi Rehberi",
+                card1_desc: "Ürün içerikleri, kullanım alanları ve detaylı bilgiler.",
+                card2_title: "Uzman Desteği",
+                card2_desc: "Uzman ekibimize sorularınızı iletebilir, destek alabilirsiniz.",
+                card3_title: "Favorilerim",
+                card3_desc: "Önemli gördüğünüz içerikleri kaydedin, kolayca ulaşın.",
+                card4_title: "Abone Ol",
+                card4_desc: "Güncel içeriklerden ve yeni buluşlardan haberdar olun.",
+                news_title: "Güncel içerikler ve yeni rehberlerden haberdar olmak için abone olun!",
+                news_desc: "Sadece önemli bilgiler, spam yok.",
+                sub_btn: "Abone Ol",
+                b1_title: "Tarafsız Bilgi",
+                b1_desc: "Tüm içerikler bağımsız olarak hazırlanır ve düzenlenir.",
+                b2_title: "Güvenilir Kaynak",
+                b2_desc: "Bilgiler, bilimsel kaynaklar ve resmi verilerden derlenir.",
+                b3_title: "Gizlilik Koruması",
+                b3_desc: "Kişisel verileriniz güvenli bir şekilde korunur.",
+                b4_title: "Kullanıcı Odaklı",
+                b4_desc: "İhtiyaçlarınıza uygun, anlaşılır ve hızlı erişim.",
+                footer_rights: "© 2026 Eshop Bilgi Platformu. Tüm hakları saklıdır.",
+                f_about: "Hakkımızda",
+                f_terms: "Kullanım Koşulları",
+                f_privacy: "Gizlilik Politikası",
+                f_contact: "İletişim",
+                m_home: "Ana Sayfa",
+                m_search: "Ara",
+                m_support: "Destek",
+                m_subscribe: "Abone Ol",
+                m_profile: "Profil"
+            },
+            en: {
+                nav_home: "Home",
+                nav_guide: "Info Guide",
+                nav_support: "Support",
+                nav_subscribe: "Subscribe",
+                hero_title: "Easy access to reliable info on <span>health products</span>",
+                hero_desc: "Quickly find product contents, usage details, and what you wonder about.",
+                search_btn: "Search",
+                pop_label: "Popular searches:",
+                card1_title: "Information Guide",
+                card1_desc: "Product contents, usage areas, and detailed information.",
+                card2_title: "Expert Support",
+                card2_desc: "Send questions to our expert team and get support.",
+                card3_title: "My Favorites",
+                card3_desc: "Save important contents and access them easily.",
+                card4_title: "Subscribe",
+                card4_desc: "Stay informed about updated contents and new guides.",
+                news_title: "Subscribe to stay informed about updated contents and new guides!",
+                news_desc: "Only important info, no spam.",
+                sub_btn: "Subscribe",
+                b1_title: "Unbiased Info",
+                b1_desc: "All contents are prepared and edited independently.",
+                b2_title: "Reliable Source",
+                b2_desc: "Information compiled from scientific sources and official data.",
+                b3_title: "Privacy Protection",
+                b3_desc: "Your personal data is securely protected.",
+                b4_title: "User Centric",
+                b4_desc: "Clear and fast access tailored to your needs.",
+                footer_rights: "© 2026 Eshop Info Platform. All rights reserved.",
+                f_about: "About Us",
+                f_terms: "Terms of Use",
+                f_privacy: "Privacy Policy",
+                f_contact: "Contact",
+                m_home: "Home",
+                m_search: "Search",
+                m_support: "Support",
+                m_subscribe: "Subscribe",
+                m_profile: "Profile"
+            },
+            ko: {
+                nav_home: "홈",
+                nav_guide: "정보 가이드",
+                nav_support: "고객 지원",
+                nav_subscribe: "구독하기",
+                hero_title: "건강 제품에 대한 신뢰할 수 있는 정보에 <span>쉽게 접근하세요</span>",
+                hero_desc: "제품 성분, 사용법 및 궁금한 점을 빠르게 찾아보세요.",
+                search_btn: "검색",
+                pop_label: "인기 검색어:",
+                card1_title: "정보 가이드",
+                card1_desc: "제품 성분, 사용 분야 및 상세 정보.",
+                card2_title: "전문가 지원",
+                card2_desc: "전문가 팀에게 질문을 보내고 지원을 받으세요.",
+                card3_title: "내 즐겨찾기",
+                card3_desc: "중요한 콘텐츠를 저장하고 쉽게 접근하세요.",
+                card4_title: "구독하기",
+                card4_desc: "최신 콘텐츠와 새로운 가이드 소식을 받아보세요.",
+                news_title: "구독하시고 최신 콘텐츠와 새로운 가이드 소식을 받아보세요!",
+                news_desc: "중요한 정보만 제공하며 스팸은 없습니다.",
+                sub_btn: "구독하기",
+                b1_title: "객관적인 정보",
+                b1_desc: "모든 콘텐츠는 독립적으로 준비되고 편집됩니다.",
+                b2_title: "신뢰할 수 있는 출처",
+                b2_desc: "과학적 출처와 공식 데이터를 기반으로 한 정보.",
+                b3_title: "개인정보 보호",
+                b3_desc: "귀하의 개인 데이터는 안전하게 보호됩니다.",
+                b4_title: "사용자 중심",
+                b4_desc: "필요에 맞춘 명확하고 빠른 접근성.",
+                footer_rights: "© 2026 Eshop 정보 플랫폼. 모든 권리 보유.",
+                f_about: "회사 소개",
+                f_terms: "이용 약관",
+                f_privacy: "개인정보 처리방침",
+                f_contact: "연락처",
+                m_home: "홈",
+                m_search: "검색",
+                m_support: "지원",
+                m_subscribe: "구독",
+                m_profile: "프로필"
+            }
+        };
+
+        function changeLanguage() {
+            const lang = document.getElementById("language-selector").value;
+            const elements = document.querySelectorAll("[data-lang]");
+
+            elements.forEach((el) => {
+                const key = el.getAttribute("data-lang");
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const slider = document.getElementById('popularSearches');
+            let isDown = false;
+            let isDragging = false;
+            let startX;
+            let scrollLeft;
+
+            if (slider) {
+                slider.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    isDragging = false;
+                    slider.style.cursor = 'grabbing';
+                    startX = e.pageX - slider.offsetLeft;
+                    scrollLeft = slider.scrollLeft;
+                });
+
+                slider.addEventListener('mouseleave', () => {
+                    isDown = false;
+                    slider.style.cursor = 'grab';
+                });
+
+                slider.addEventListener('mouseup', () => {
+                    isDown = false;
+                    slider.style.cursor = 'grab';
+                    setTimeout(() => {
+                        isDragging = false;
+                    }, 50);
+                });
+
+                slider.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    isDragging = true;
+                    e.preventDefault();
+                    const x = e.pageX - slider.offsetLeft;
+                    const walk = (x - startX) * 1.5;
+                    slider.scrollLeft = scrollLeft - walk;
+                });
+
+                const tags = slider.querySelectorAll('a');
+                tags.forEach(tag => {
+                    tag.addEventListener('click', (e) => {
+                        if (isDragging) {
+                            e.preventDefault();
+                        }
+                    });
+                });
+            }
+        });
+    </script>
 </body>
+
 </html>

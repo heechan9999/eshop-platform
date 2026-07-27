@@ -1,4 +1,3 @@
-// 다국어 데이터
 const translations = {
     tr: {
         nav_home: "Ana Sayfa",
@@ -131,7 +130,6 @@ function changeLanguage() {
     });
 }
 
-// 인기 검색어 태그 드래그(마우스 스와이프) 기능 및 클릭 방어 로직
 document.addEventListener("DOMContentLoaded", () => {
     const slider = document.getElementById('popularSearches');
     let isDown = false;
@@ -170,7 +168,6 @@ document.addEventListener("DOMContentLoaded", () => {
             slider.scrollLeft = scrollLeft - walk;
         });
 
-        // 드래그 중일 때는 링크 이동을 방지하고, 단순 클릭 시에만 정상 이동
         const tags = slider.querySelectorAll('a');
         tags.forEach(tag => {
             tag.addEventListener('click', (e) => {
